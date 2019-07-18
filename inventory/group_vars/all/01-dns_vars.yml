@@ -1,0 +1,5 @@
+---
+# DNS Domain
+dns_default_domain: sgroot.local
+dns_server_1: 10.1.10.10
+dns_server_2: 10.1.10.11

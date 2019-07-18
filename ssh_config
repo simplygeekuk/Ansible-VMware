@@ -1,0 +1,15 @@
+host *
+ ForwardAgent yes
+ ForwardX11 no
+ ConnectionAttempts 3
+ ConnectTimeout 15
+ TCPKeepAlive yes
+ ServerAliveCountMax 6
+ ServerAliveInterval 30
+ ControlMaster auto
+ ControlPath /tmp/ssh-%r@%h:%pi
+ ControlPersist 60s
+ UserKnownHostsFile /dev/null
+ StrictHostKeyChecking no
+ IdentityFile ~/.ssh/ansible-key-id-rsa
+ IdentityFile ~/.ssh/id_rsa

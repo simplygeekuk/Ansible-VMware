@@ -1,0 +1,4 @@
+*.retry
+*.swp
+vp
+.vscode/

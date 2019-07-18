@@ -1,0 +1,30 @@
+---
+- hosts: local
+  become: no
+  gather_facts: False
+  vars:
+  tasks:
+  - name: Create a New Virtual Machine
+    vmware_guest:
+      hostname: sg1-vsa001.sgroot.local
+      username: administrator@vsphere.local
+      password: VMwar3!!
+      validate_certs: no
+      datacenter: SG1
+      cluster: SG1-CLS-MGMT-01
+      folder: /SG1/vm
+      name: Linux_VM
+      guest_id: centos7_64Guest
+      disk:
+      - size_gb: 20
+        type: thin
+        datastore: vsanDatastore
+      hardware:
+        memory_mb: 2048
+        num_cpus: 1
+        scsi: paravirtual
+      networks:
+      - name: Management
+        device_type: vmxnet3
+      state: present
+    delegate_to: localhost

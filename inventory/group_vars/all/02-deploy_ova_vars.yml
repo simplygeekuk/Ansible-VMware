@@ -1,0 +1,3 @@
+---
+# OVA Deployment Variables
+ova_validate_certs: no

@@ -1,0 +1,12 @@
+---
+# Default Windows Administrator
+win_admin_username: "administrator"
+win_admin_password: "VMwar3!!"
+
+# Active Directory Join Domain Account
+ad_dom_join_username: "svc_dom_join@sgroot.local"
+ad_dom_join_password: "VMwar3!!"
+
+# Windows timezone
+# See: https://docs.microsoft.com/en-us/previous-versions/windows/embedded/ms912391(v=winembedded.11)
+win_timezone: 085

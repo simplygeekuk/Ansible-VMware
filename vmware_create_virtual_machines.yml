@@ -1,0 +1,6 @@
+---
+- hosts: linux
+  become: no
+  gather_facts: False
+  roles:
+   - vmware_create_virtual_machine

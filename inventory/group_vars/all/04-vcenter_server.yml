@@ -1,0 +1,8 @@
+---
+vcenter_hostname: "sg1-vsa001.sgroot.local"
+vcenter_username: administrator@vsphere.local
+vcenter_password: VMwar3!!
+
+vcenter_default_datacenter: SG1
+vcenter_default_cluster: SG1-CLS-MGMT-01
+vcenter_default_folder: /SG1/vm

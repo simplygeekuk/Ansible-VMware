@@ -1,0 +1,16 @@
+[local]
+localhost   ansible_python_interpreter=~/python-env/ansible_vmware/bin/python
+
+[windows]
+win-server-01
+win-server-02
+win-server-03
+
+[linux]
+lin-server-01
+lin-server-02
+lin-server-03
+lin-server-04
+lin-server-05
+
+[ova_appliances]

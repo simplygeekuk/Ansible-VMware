@@ -1,0 +1,47 @@
+---
+- hosts: local
+  become: no
+  gather_facts: False
+  vars:
+  tasks:
+  - name: Create a Windows Virtual Machine
+    vmware_guest:
+      hostname: sg1-vsa001.sgroot.local
+      username: administrator@vsphere.local
+      password: VMwar3!!
+      validate_certs: no
+      datacenter: SG1
+      cluster: SG1-CLS-MGMT-01
+      folder: /SG1/vm
+      name: Windows-VM
+      template: 2012R2_TMPL
+      #linked_clone: yes
+      #snapshot_src: "Template"
+      datastore: vsanDatastore
+      hardware:
+        memory_mb: 4096
+        num_cpus: 2
+      networks:
+        - name: Management
+          ip: 10.1.10.119
+          netmask: 255.255.255.0
+          gateway: 10.1.10.254
+          domain: sgroot.local
+          dns_servers:
+          - 10.1.10.10
+          - 10.1.10.11
+      customization:
+        hostname: Windows-VM
+        dns_servers:
+        - 10.1.10.10
+        - 10.1.10.11
+        timezone: 085
+        domain: sgroot.local
+        password: VMwar3!!
+        joindomain: sgroot.local
+        domainadmin: svc_dom_join@sgroot.local
+        domainadminpassword: VMwar3!!
+      wait_for_customization: yes
+      wait_for_ip_address: True
+      state: poweredon
+    delegate_to: localhost

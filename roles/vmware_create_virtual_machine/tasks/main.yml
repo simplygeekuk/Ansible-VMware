@@ -1,0 +1,25 @@
+---
+- name: Create a New Virtual Machine
+  vmware_guest:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    datacenter: "{{ vcenter_default_datacenter }}"
+    cluster: "{{ vcenter_default_cluster }}"
+    folder: "{{ vcenter_default_folder }}"
+    name: "{{ inventory_hostname_short | upper }}"
+    guest_id: "{{ vm_guest_id }}"
+    disk:
+    - size_gb: "{{ vm_disk_size }}"
+      type: "{{ vm_disk_type }}"
+      datastore: "{{ vm_disk_datastore }}"
+    hardware:
+      memory_mb: "{{ vm_hardware_memory_gb * 1024 }}"
+      num_cpus: "{{ vm_hardware_cpu }}"
+      scsi: "{{ vm_hardware_controller }}"
+    networks:
+    - name: "{{ vm_network_label }}"
+      device_type: "{{ vm_network_type }}"
+    state: poweredon
+  delegate_to: localhost
