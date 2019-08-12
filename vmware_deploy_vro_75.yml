@@ -1,0 +1,7 @@
+---
+- hosts: vro_75_appliances
+  become: no
+  gather_facts: False
+  roles:
+   - vmware_deploy_ova
+   

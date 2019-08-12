@@ -1,0 +1,29 @@
+---
+# OVA Network Vars
+ova_network_label: Management
+ova_network_ip_address: 10.1.10.
+ova_network_mask: 255.255.255.0
+ova_network_gateway: 10.1.10.254
+
+# OVA Deployment Vars
+ova_deployment_hostname: "{{ vcenter_hostname }}"
+ova_deployment_username: "{{ vcenter_username }}"
+ova_deployment_password: "{{ vcenter_password }}"
+ova_deployment_datacenter: "{{ vcenter_datacenter }}"
+ova_deployment_cluster: "{{ vcenter_cluster }}"
+ova_deployment_datastore: "{{ vcenter_datastore}}"
+
+# These values will be populated based on those provided above.
+ova_networks:
+  "Network 1": "{{ ova_network_label }}"
+ova_properties:
+  vami.hostname: "{{ inventory_hostname }}"
+  vami.ip0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_ip_address }}"
+  vami.netmask0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_mask }}"
+  vami.gateway.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_gateway }}"
+  vami.DNS.VMware_vRealize_Orchestrator_Appliance: "{{ dns_server_1 }}"
+  vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+  vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+  va-ssh-enabled: "{{ ova_enable_ssh }}"
+  varoot-password: 
+  ceip_enabled: "{{ ova_enable_telemetry }}"

@@ -1,0 +1,26 @@
+---
+- name: Deploy OVA Template
+  vmware_deploy_ovf:
+    hostname: "{{ ova_deployment_hostname }}"
+    username: "{{ ova_deployment_username }}"
+    password: "{{ ova_deployment_password }}"
+    validate_certs: '{{ ova_validate_certs }}'
+    ova: "{{ ova_path }}/{{ ova_filename }}"
+    name: "{{ inventory_hostname_short |upper }}"
+    folder: "{{ ova_deployment_folder | default(omit) }}"
+    datacenter: "{{ ova_deployment_datacenter }}"
+    cluster: "{{ ova_deployment_cluster }}"
+    resource_pool: "{{ ova_deployment_resource_pool | default(omit) }}"
+    datastore: "{{ ova_deployment_datastore }}"
+    disk_provisioning: "{{ ova_deployment_disk_type }}"
+    networks: "{{ ova_networks }}"
+    allow_duplicates: "{{ ova_allow_duplicates }}"
+    power_on: "{{ ova_power_on_after_deploy }}"
+    deployment_option: "{{ ova_deployment_option | default(omit) }}"
+    fail_on_spec_warnings: yes
+    wait: "{{ ova_wait_for_power_on }}"
+    wait_for_ip_address: "{{ ova_wait_for_ip_address }}"
+    properties: "{{ ova_properties }}"
+    inject_ovf_env: yes
+  delegate_to: localhost
+  register: ova_deployed

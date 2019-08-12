@@ -1,3 +1,5 @@
+sg1-vro003.sgroot.local
+
 [local]
 localhost   ansible_python_interpreter=~/python-env/ansible_vmware/bin/python
 
@@ -13,4 +15,12 @@ lin-server-03
 lin-server-04
 lin-server-05
 
-[ova_appliances]
+[vro_75_appliances]
+sg1-vro003.sgroot.local
+
+[vro_76_appliances]
+
+
+[vro_appliances:children]
+vro_75_appliances
+vro_76_appliances
