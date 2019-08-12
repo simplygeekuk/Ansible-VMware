@@ -1,9 +1,9 @@
 ---
 # OVA Network Vars
-ova_network_label: Management
-ova_network_ip_address: 10.1.10.90
-ova_network_mask: 255.255.255.0
-ova_network_gateway: 10.1.10.254
+ova_network_label: "Management"
+ova_network_ip_address: "10.1.10.90"
+ova_network_mask: "255.255.255.0"
+ova_network_gateway: "10.1.10.254"
 
 # OVA Deployment Vars
 ova_deployment_hostname: "{{ vcenter_hostname }}"
