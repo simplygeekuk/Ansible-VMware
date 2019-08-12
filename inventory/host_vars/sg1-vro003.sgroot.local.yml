@@ -11,7 +11,8 @@ ova_deployment_username: "{{ vcenter_username }}"
 ova_deployment_password: "{{ vcenter_password }}"
 ova_deployment_datacenter: "{{ vcenter_datacenter }}"
 ova_deployment_cluster: "{{ vcenter_cluster }}"
-ova_deployment_datastore: "{{ vcenter_datastore}}"
+ova_deployment_datastore: "{{ vcenter_datastore }}"
+ova_deployment_folder: "{{ vcenter_folder }}"
 
 # These values will be populated based on those provided above.
 ova_networks:
