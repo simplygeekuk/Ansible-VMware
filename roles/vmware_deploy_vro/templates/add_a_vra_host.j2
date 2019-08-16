@@ -1,0 +1,46 @@
+{
+  "parameters": [
+    {
+      "scope": "local",
+      "name": "name",
+      "type": "string",
+      "value": {"string": {"value": "{{ cafe_plugin.name }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "url",
+      "type": "string",
+      "value": {"string": {"value": "https://{{ cafe_plugin.hostname }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "tenant",
+      "type": "string",
+      "value": {"string": {"value": "{{ cafe_plugin.tenant }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "authUsername",
+      "type": "string",
+      "value": {"string": {"value": "{{ cafe_plugin.username }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "authPassword",
+      "type": "SecureString",
+      "value": {"string": {"value": "{{ cafe_plugin.password }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "sessionMode",
+      "type": "string",
+      "value": {"string": {"value": "Shared Session"}}
+    },
+    {
+      "scope": "local",
+      "name": "acceptAllCertificates",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    }
+  ]
+}

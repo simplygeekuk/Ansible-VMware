@@ -13,3 +13,12 @@ vro_default_root_password: "VMwar3!!"
 ## Note that this API user must be a member of the vro_auth_adminGroup.
 vro_api_username: vro_api_user@sgroot.local
 vro_api_password: VMwar3!!
+
+## The following credentials are used to configure plugin endpoints.
+# vCenter Server Plugin Endpoint.
+vcenter_plugin_endpoint_username: "{{ vcenter_username }}"
+vcenter_plugin_endpoint_password: "{{ vcenter_password }}"
+
+# vRA Cafe Plugin Endpoint.
+cafe_plugin_endpoint_username: svc_vro_vra@sgroot.local
+cafe_plugin_endpoint_password: VMwar3!!

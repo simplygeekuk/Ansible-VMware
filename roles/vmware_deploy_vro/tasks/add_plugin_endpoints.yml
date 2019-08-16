@@ -5,3 +5,10 @@
   loop_control:
     loop_var: vcenter_plugin
   when: vcenter_plugin_endpoints is defined
+
+- name: Adding vRA CAFE Plugin Endpoint
+  include_tasks: add_cafe_plugin_endpoints.yml
+  loop: "{{ cafe_plugin_endpoints }}"
+  loop_control:
+    loop_var: cafe_plugin
+  when: cafe_plugin_endpoints is defined
