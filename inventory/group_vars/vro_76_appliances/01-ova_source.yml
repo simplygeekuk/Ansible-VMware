@@ -1,0 +1,4 @@
+---
+# vRO OVF/OVA Variables
+ova_path: "/mnt/iso/VMware/vRO/7.6"
+ova_filename: "VMware-vRO-Appliance-7.6.0.317-13020602_OVF10.ova"
