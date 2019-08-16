@@ -3,5 +3,5 @@
   become: no
   gather_facts: False
   roles:
-   - vmware_deploy_ova
+   - vmware_deploy_vro
    
