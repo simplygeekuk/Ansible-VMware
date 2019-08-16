@@ -1,0 +1,15 @@
+---
+## This is a global credentials variable file. It is kept separate so that
+## the file can be protected by Ansible vault or removed altogether using an 
+## external password manager.
+
+## These are the default credentials that will be configured for all vRO appliances.
+## These can be overridden by setting vro_root_username and vro_root_password per
+## host in host_vars.
+vro_default_root_username: root
+vro_default_root_password: "VMwar3!!"
+
+## The following credentials are used for BASIC auth to the vco API.
+## Note that this API user must be a member of the vro_auth_adminGroup.
+vro_api_username: vro_api_user@sgroot.local
+vro_api_password: VMwar3!!
