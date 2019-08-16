@@ -15,6 +15,8 @@
 #     loop_var: vro_plugin
 
 - include_tasks: add_plugin_endpoints.yml
+  vars:
+    ignore_workflow_errors: "{{ vro_ignore_plugin_errors }}"
   when: |
     vro_configure_plugin_endpoints|bool and
     vro_auth_provider is defined

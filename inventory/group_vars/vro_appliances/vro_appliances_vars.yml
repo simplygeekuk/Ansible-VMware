@@ -37,6 +37,10 @@ vro_auth_default_tenant: "vsphere.local"
 ## and the API user a member of the adminGroup.
 vro_configure_plugin_endpoints: yes
 
+## Set if you would like to ignore any errors when adding plugin endpoints.
+## This can be useful when re-running the playbook fails for duplicate plugins.
+vro_ignore_plugin_errors: no
+
 ## Add vCenter Server Endpoints.
 ## If you also add the vAPI endpoint, ensure this service has been started.
 vcenter_plugin_endpoints:
@@ -46,6 +50,7 @@ vcenter_plugin_endpoints:
     domain: "{{ dns_default_domain }}"
     add_vapi_endpoint: no
 
+## Add vRA Cafe Endpoints.
 cafe_plugin_endpoints:
   - name: Simplygeek2
     hostname: vra.sgroot.local
