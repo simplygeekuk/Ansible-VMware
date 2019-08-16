@@ -1,0 +1,26 @@
+---
+- name: "Start Authentication Configuration Wizard for provider: {{ vro_auth_provider }}"
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/authentication/configuration/provider/{{ vro_auth_provider }}"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [201]
+  register: auth_response
+  delegate_to: localhost
+  delegate_facts: true
+  changed_when: false
+
+- name: Set Authentication Provider ID
+  set_fact:
+    auth_provider_id: "{{ auth_response.json.id }}"
+
+- include_tasks: configure_auth_vsphere.yml
+  when: vro_auth_provider == "VSPHERE"
+
+- include_tasks: configure_auth_cafe.yml
+  when: vro_auth_provider == "CAFE"

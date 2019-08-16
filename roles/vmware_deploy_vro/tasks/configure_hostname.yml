@@ -1,0 +1,39 @@
+---
+- name: Set Hostname Value
+  set_fact:
+    vro_hostname: "https://{{ vro_vip_hostname | default(inventory_hostname|lower) }}:{{ vro_cc_api_port }}"
+
+- name: Get Current Hostname
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/authentication/service/host"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: GET
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200]
+  register: get_hostname_response
+  delegate_to: localhost
+  delegate_facts: true
+
+- name: Set Hostname
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/authentication/service/host"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+    body_format: "{{ http_body_format }}"
+    body:
+      host: "{{ vro_hostname }}"
+    status_code: [200]
+  register: set_hostname_response
+  delegate_to: localhost
+  delegate_facts: true
+  changed_when: set_hostname_response.status == 200
+  when: vro_hostname != get_hostname_response.json.host

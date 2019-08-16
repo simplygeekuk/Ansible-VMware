@@ -1,0 +1,40 @@
+{
+  "parameters": [
+    {
+      "scope": "local",
+      "name": "endpointUrl",
+      "type": "string",
+      "value": {"string": {"value": "{{ vapi_url }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "username",
+      "type": "string",
+      "value": {"string": {"value": "{{ vapi_username }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "password",
+      "type": "SecureString",
+      "value": {"string": {"value": "{{ vapi_password }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "ignoreCertificateWarnings",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    },
+    {
+      "scope": "local",
+      "name": "useSecureConnection",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    },
+    {
+      "scope": "local",
+      "name": "addEndpoint",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    }
+  ]
+}

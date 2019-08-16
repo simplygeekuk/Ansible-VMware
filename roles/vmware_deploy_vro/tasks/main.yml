@@ -1,0 +1,20 @@
+---
+#- include_tasks: remove_existing.yml
+#  when: vro_remove_existing|bool
+
+#- include_tasks: wait_for_vro_service.yml
+
+# - include_tasks: configure_hostname.yml
+
+# - include_tasks: configure_auth_provider.yml
+#   when: vro_auth_provider is defined
+
+# - include_tasks: install_plugin.yml
+#   with_fileglob: "{{ vro_plugins }}"
+#   loop_control:
+#     loop_var: vro_plugin
+
+- include_tasks: add_plugin_endpoints.yml
+  when: |
+    vro_configure_plugin_endpoints|bool and
+    vro_auth_provider is defined

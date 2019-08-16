@@ -1,0 +1,13 @@
+---
+http_content_type: "application/json"
+http_Accept: "application/json"
+http_validate_certs: yes
+http_body_format: "json"
+
+vro_api_port: 8281
+vro_cc_api_port: 8283
+
+vro_enable_ssh: "False"
+vro_enable_telemetry: "True"
+
+vro_configure_plugin_endpoints: yes

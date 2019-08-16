@@ -1,0 +1,12 @@
+---
+- include_tasks: execute_workflow.yml
+  vars:
+    workflow_name: "Add a vCenter Server Instance"
+
+- name: Adding vCenter Server vAPI Plugin Endpoint
+  include_tasks: add_vapi_plugin_endpoint.yml
+  vars:
+    vapi_url: "https://{{ vcenter_plugin.hostname }}/api"
+    vapi_username: "{{ vcenter_plugin.username }}"
+    vapi_password: "{{ vcenter_plugin.password }}"
+  when: vcenter_plugin.add_vapi_endpoint|bool

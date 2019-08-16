@@ -1,0 +1,50 @@
+---
+- name: "Upload vRO Plugin: {{ vro_plugin }}"
+  command: >
+    curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
+    -F "file=@{{ vro_plugin }}"
+    https://{{ inventory_hostname|lower }}:{{ vro_cc_ip_port }}/vco-controlcenter/api/plugins/installation
+  delegate_to: localhost
+  register: vro_plugin_upload_response
+  no_log: true
+
+- name: Set Plugin ID
+  set_fact:
+    vro_plugin_id: "{{ (vro_plugin_upload_response.stdout | from_json).id }}"
+
+- name: "Install vRO Plugin: {{ vro_plugin }}"
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation/{{ vro_plugin_id }}"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+    body_format: "{{ http_body_format }}"
+    body:
+      eulaAccepted: true
+      forceInstall: true
+    status_code: [200]
+  register: vro_plugin_install_response
+  delegate_to: localhost
+  delegate_facts: true
+
+- name: "Complete vRO Plugin Installation"
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation/{{ vro_plugin_id }}/finish"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200]
+  register: vro_plugin_finish_response
+  delegate_to: localhost
+  delegate_facts: true
+  changed_when: |
+    vro_plugin_finish_response.json.installPluginStates[0].state == "INSTALLED" or
+    vro_plugin_finish_response.json.installPluginStates[0].state == "OVERWRITTEN"

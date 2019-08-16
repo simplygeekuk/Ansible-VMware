@@ -1,0 +1,80 @@
+---
+- name: "Get Workflow ID for: {{ workflow_name }}"
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/content/workflows?conditions=name={{ workflow_name | urlencode }}&keys=id"
+    user: "{{ vro_api_username }}"
+    password: "{{ vro_api_password }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: GET
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200]
+  register: workflow_response
+  delegate_to: localhost
+  delegate_facts: true
+
+## Loop through until we find the Id - less optimal and noisey
+# - name: Set Workflow ID
+#   set_fact:
+#     workflow_id: "{{ item.value }}"
+#   loop: "{{ workflow_response.json.link[0].attributes | list }}"
+#   when: item.name == 'id'
+
+- name: Set Workflow ID
+  set_fact:
+    workflow_id: "{{ workflow_response.json.link[0] | json_query(query) | first }}"
+  vars:
+    query: "attributes[?name=='id'].value"
+
+- name: "Execute Workflow: {{ workflow_name }}"
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/workflows/{{ workflow_id }}/executions/"
+    user: "{{ vro_api_username }}"
+    password: "{{ vro_api_password }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+      Content-Type: "{{ http_content_type }}"
+    body_format: json
+    #body: "{{ lookup('template', 'add_a_vcenter_server_workflow.j2') }}"
+    body: "{{ lookup('template', (workflow_name | replace(' ', '_') | lower) + '.j2') }}"
+    status_code: [202]
+  register: workflow_execute_response
+  delegate_to: localhost
+  delegate_facts: true
+
+- name: Get Workflow Execution ID
+  set_fact: 
+    workflow_exection_id: "{{ workflow_execute_response.json.id }}"
+
+- name: Check Workflow Status
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/workflows/{{ workflow_id }}/executions/{{ workflow_exection_id }}"
+    user: "{{ vro_api_username }}"
+    password: "{{ vro_api_password }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: GET
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200]
+  register: check_workflow_execute_response
+  delegate_to: localhost
+  delegate_facts: true
+  ignore_errors: yes
+  until: |
+    check_workflow_execute_response.json.state == "completed" or
+    check_workflow_execute_response.json.state == "failed" or
+    check_workflow_execute_response.json.state == "canceled"
+  retries: 50
+  delay: 10
+
+- name: Check for Workflow Failure
+  fail:
+    msg: "{{ check_workflow_execute_response.json['content-exception'] }}"
+  when: |
+    check_workflow_execute_response.json.state == "failed" and
+    'already registered' not in check_workflow_execute_response.json['content-exception']

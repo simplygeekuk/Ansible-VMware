@@ -1,0 +1,4 @@
+---
+- include_tasks: execute_workflow.yml
+  vars:
+    workflow_name: "Import vAPI metamodel"

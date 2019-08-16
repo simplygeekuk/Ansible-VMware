@@ -1,0 +1,58 @@
+{
+  "parameters": [
+    {
+      "scope": "local",
+      "name": "enabled",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true"}}
+    },
+    {
+      "scope": "local",
+      "name": "host",
+      "type": "string",
+      "value": {"string": {"value": "{{ vcenter_plugin.hostname }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "port",
+      "type": "number",
+      "value": {"number": {"value": "443" }}
+    },
+    {
+      "scope": "local",
+      "name": "path",
+      "type": "string",
+      "value": {"string": {"value": "/sdk" }}
+    },
+    {
+      "scope": "local",
+      "name": "sessionPerUser",
+      "type": "boolean",
+      "value": {"boolean": {"value": "false" }}
+    },
+    {
+      "scope": "local",
+      "name": "userName",
+      "type": "string",
+      "value": {"string": {"value": "{{ vcenter_plugin.username }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "password",
+      "type": "SecureString",
+      "value": {"string": {"value": "{{ vcenter_plugin.password }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "domain",
+      "type": "string",
+      "value": {"string": {"value": "{{ vcenter_plugin.domain }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "ignoreCertificateWarnings",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    }
+  ]
+}

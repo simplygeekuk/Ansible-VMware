@@ -1,0 +1,7 @@
+---
+- name: Adding vCenter Server Plugin Endpoint
+  include_tasks: add_vcenter_plugin_endpoints.yml
+  loop: "{{ vcenter_plugin_endpoints }}"
+  loop_control:
+    loop_var: vcenter_plugin
+  when: vcenter_plugin_endpoints is defined
