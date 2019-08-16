@@ -1,0 +1,41 @@
+---
+# OVA Network Vars
+ova_network_label: "Management"
+ova_network_ip_address: "10.1.10.91"
+ova_network_mask: "255.255.255.0"
+ova_network_gateway: "10.1.10.254"
+
+# OVA Deployment Vars
+ova_deployment_hostname: "{{ vcenter_hostname }}"
+ova_deployment_username: "{{ vcenter_username }}"
+ova_deployment_password: "{{ vcenter_password }}"
+ova_deployment_datacenter: "{{ vcenter_datacenter }}"
+ova_deployment_cluster: "{{ vcenter_cluster }}"
+ova_deployment_datastore: "{{ vcenter_datastore }}"
+ova_deployment_folder: "{{ vcenter_folder }}"
+
+# Auth provider is one of 'CAFE' or 'VSPHERE'
+vro_auth_provider: CAFE
+vro_auth_hostname: vra.sgroot.local
+vro_auth_username: defaultadmin
+vro_auth_password: VMwar3!!
+vro_auth_adminGroup: "vSphere-Admins"
+vro_auth_adminGroupDomain: "{{ dns_default_domain }}"
+vro_auth_default_tenant: "vsphere.local"
+
+vro_remove_existing: yes
+
+# These values will be populated based on those provided above or elsewhere.
+ova_networks:
+  "Network 1": "{{ ova_network_label }}"
+ova_properties:
+  vami.hostname: "{{ inventory_hostname|lower }}"
+  vami.ip0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_ip_address }}"
+  vami.netmask0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_mask }}"
+  vami.gateway.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_gateway }}"
+  vami.DNS.VMware_vRealize_Orchestrator_Appliance: "{{ dns_server_1 }}"
+  vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+  vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+  va-ssh-enabled: "{{ vro_enable_ssh }}"
+  varoot-password: "{{ vro_root_password }}"
+  ceip_enabled: "{{ vro_enable_telemetry }}"
