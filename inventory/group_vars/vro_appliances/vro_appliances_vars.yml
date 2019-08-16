@@ -6,12 +6,8 @@
 ## Enable SSH access to the appliance.
 vro_enable_ssh: "True"
 
-## Enable Customer Experience Improvement Program
+## Enable Customer Experience Improvement Program.
 vro_enable_telemetry: "False"
-
-## Set the ports used by the vco and vco-controlcenter APIs.
-vro_api_port: 8281
-vro_cc_api_port: 8283
 
 ## Configure remote syslog server.
 # vro_syslog_server: 
@@ -45,29 +41,36 @@ vro_configure_plugin_endpoints: yes
 ## If you also add the vAPI endpoint, ensure this service has been started.
 vcenter_plugin_endpoints:
   - hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_username }}"
-    password: "{{ vcenter_password }}"
+    username: "{{ vcenter_plugin_endpoint_username }}"
+    password: "{{ vcenter_plugin_endpoint_password }}"
     domain: "{{ dns_default_domain }}"
     add_vapi_endpoint: no
 
-## Add HTTP Restful API Endpoints.
-## Supported auth_type's are Basic and OAuth2
-## Uncomment and set proxy section if rest host is behind a proxy.
-rest_plugin_endpoints:
-  - name: 
-    url: 
-    auth_type: Basic
-    basic_username: 
-    basic_password:
-    # oauth2_token: 
-    # proxy_host: 
-    # proxy_port: 
-    # proxy_username: 
-    # proxy_password: 
-    host_verification: no
+cafe_plugin_endpoints:
+  - name: Simplygeek2
+    hostname: vra.sgroot.local
+    tenant: sg
+    username: "{{ cafe_plugin_endpoint_username }}"
+    password: "{{ cafe_plugin_endpoint_password }}"
 
-powershell_plugin_endpoints:
-  - name: 
-    host: 
-    port: 
-    auth_type: 
+## Add HTTP Restful API Endpoints.
+## Only Basic is supported currently (OAuth2 will be added in the future).
+## Uncomment and set proxy section if rest host is behind a proxy.
+# rest_plugin_endpoints:
+#   - name: 
+#     url: 
+#     auth_type: Basic
+#     basic_username: 
+#     basic_password:
+#     # oauth2_token: 
+#     # proxy_host: 
+#     # proxy_port: 
+#     # proxy_username: 
+#     # proxy_password: 
+#     host_verification: no
+
+# powershell_plugin_endpoints:
+#   - name: 
+#     host: 
+#     port: 
+#     auth_type: 

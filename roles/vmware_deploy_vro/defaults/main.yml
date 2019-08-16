@@ -1,13 +1,21 @@
 ---
+# HTTP REST API Variables
 http_content_type: "application/json"
 http_Accept: "application/json"
 http_validate_certs: yes
 http_body_format: "json"
 
+## Set the ports used by the vco and vco-controlcenter APIs.
 vro_api_port: 8281
 vro_cc_api_port: 8283
 
+## Enable SSH access to the appliance.
 vro_enable_ssh: "False"
+
+## Enable Customer Experience Improvement Program.
 vro_enable_telemetry: "True"
 
+## Set to enable or disable if plugin endpoints should be configured.
+## This will have a dependency on an authentication provider being configured
+## and the API user a member of the adminGroup.
 vro_configure_plugin_endpoints: yes
