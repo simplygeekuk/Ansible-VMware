@@ -1,0 +1,12 @@
+  {
+    "scope": "local",
+    "name": "authentication",
+    "type": "string",
+    "value": {"string": {"value": "OAuth 2.0"}}
+  },
+  {
+    "scope": "local",
+    "name": "oauth2Token",
+    "type": "string",
+    "value": {"string": {"value": "{{ rest_plugin.oauth2_token }}"}}
+  },

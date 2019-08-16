@@ -51,28 +51,29 @@ vcenter_plugin_endpoints:
     add_vapi_endpoint: no
 
 ## Add vRA Cafe Endpoints.
-cafe_plugin_endpoints:
-  - name: Simplygeek2
-    hostname: vra.sgroot.local
-    tenant: sg
-    username: "{{ cafe_plugin_endpoint_username }}"
-    password: "{{ cafe_plugin_endpoint_password }}"
+# cafe_plugin_endpoints:
+#   - name: Simplygeek2
+#     hostname: vra.sgroot.local
+#     tenant: sg
+#     username: "{{ cafe_plugin_endpoint_username }}"
+#     password: "{{ cafe_plugin_endpoint_password }}"
 
-## Add HTTP Restful API Endpoints.
-## Only Basic is supported currently (OAuth2 will be added in the future).
-## Uncomment and set proxy section if rest host is behind a proxy.
-# rest_plugin_endpoints:
-#   - name: 
-#     url: 
-#     auth_type: Basic
-#     basic_username: 
-#     basic_password:
-#     # oauth2_token: 
-#     # proxy_host: 
-#     # proxy_port: 
-#     # proxy_username: 
-#     # proxy_password: 
-#     host_verification: no
+# Add HTTP Restful API Endpoints.
+# Only Basic and OAuth2 is supported currently.
+# Uncomment and set proxy section if rest host is behind a proxy.
+rest_plugin_endpoints:
+  - name: NSX_Management
+    url: https://sg1-nsx001.sgroot.local/api
+    auth_type: Basic
+    username: admin
+    password: VMwar3!!
+    # oauth2_token: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    # proxy_host: proxy.example.com
+    # proxy_port: 8080
+    ## Proxy username and password can be left commented if proxy doesn't require authentication
+    # proxy_username: user
+    # proxy_password: password
+    host_verification: no
 
 # powershell_plugin_endpoints:
 #   - name: 

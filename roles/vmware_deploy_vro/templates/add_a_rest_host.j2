@@ -1,0 +1,41 @@
+{
+  "parameters": [
+    {
+      "scope": "local",
+      "name": "name",
+      "type": "string",
+      "value": {"string": {"value": "{{ rest_plugin.name }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "url",
+      "type": "string",
+      "value": {"string": {"value": "{{ rest_plugin.url }}"}}
+    },
+    {% if rest_plugin.auth_type is defined %}
+        {% if rest_plugin.auth_type|lower == 'basic' %}
+            {% include 'rest_basic_auth.json' %}
+        {% elif rest_plugin.auth_type|lower == 'oauth2' %}
+            {% include 'rest_oauth2_auth.json' %}
+        {% endif %}
+    {% endif %}
+    {% if rest_plugin.proxy_host is defined %}
+        {% include 'rest_proxy_host.json' %}
+        {% if rest_plugin.proxy_username is defined %}
+            {% include 'rest_proxy_auth.json' %}
+        {% endif %}
+    {% endif %}
+    {
+      "scope": "local",
+      "name": "hostVerification",
+      "type": "boolean",
+      "value": {"boolean": {"value": "{{ rest_plugin.host_verification }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "ignoreWarnings",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    }
+  ]
+}

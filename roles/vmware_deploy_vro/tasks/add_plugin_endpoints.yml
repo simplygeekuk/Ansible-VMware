@@ -12,3 +12,10 @@
   loop_control:
     loop_var: cafe_plugin
   when: cafe_plugin_endpoints is defined
+
+- name: Adding REST Host Plugin Endpoint
+  include_tasks: add_rest_plugin_endpoints.yml
+  loop: "{{ rest_plugin_endpoints }}"
+  loop_control:
+    loop_var: rest_plugin
+  when: rest_plugin_endpoints is defined
