@@ -1,11 +1,14 @@
 ---
-# OVA Network Vars
+## Set Network Configuration for the appliance.
 ova_network_label: "Management"
 ova_network_ip_address: "10.1.10.90"
 ova_network_mask: "255.255.255.0"
 ova_network_gateway: "10.1.10.254"
 
-# OVA Deployment Vars
+## Set hostname if using a load balancer. Will default to using the inventory hostname.
+# vro_vip_hostname: vro.example.com
+
+## Set the OVA deployment variables.
 ova_deployment_hostname: "{{ vcenter_hostname }}"
 ova_deployment_username: "{{ vcenter_username }}"
 ova_deployment_password: "{{ vcenter_password }}"
@@ -14,17 +17,21 @@ ova_deployment_cluster: "{{ vcenter_cluster }}"
 ova_deployment_datastore: "{{ vcenter_datastore }}"
 ova_deployment_folder: "{{ vcenter_folder }}"
 
-# These values will be populated based on those provided above.
+## Set the root password for this appliance, or leave commented out to use the default.
+# vro_root_password: "VMwar3!!"
+
+## Set the OVF Appliance Options/Properties.
+## These values will be populated based on other variables but can be overridden here.
 ova_networks:
   "Network 1": "{{ ova_network_label }}"
 ova_properties:
-  vami.hostname: "{{ inventory_hostname }}"
+  vami.hostname: "{{ inventory_hostname|lower }}"
   vami.ip0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_ip_address }}"
   vami.netmask0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_mask }}"
   vami.gateway.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_gateway }}"
   vami.DNS.VMware_vRealize_Orchestrator_Appliance: "{{ dns_server_1 }}"
   vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
   vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
-  va-ssh-enabled: "{{ ova_enable_ssh }}"
-  varoot-password: 
-  ceip_enabled: "{{ ova_enable_telemetry }}"
+  va-ssh-enabled: "{{ vro_enable_ssh }}"
+  varoot-password: "{{ vro_root_password | default(vro_default_root_password) }}"
+  ceip_enabled: "{{ vro_enable_telemetry }}"
