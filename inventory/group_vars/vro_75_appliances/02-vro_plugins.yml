@@ -1,3 +1,5 @@
 ---
+## Provide a list of plugins that should be installed.
+## The plugin packages should be placed in the files folder for the vmware_deploy_vro role.
 vro_plugins:
   - o11nplugin-hint-1.5.11.dar
