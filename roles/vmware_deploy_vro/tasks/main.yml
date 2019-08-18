@@ -14,6 +14,16 @@
 #   loop_control:
 #     loop_var: vro_plugin
 
+- include_tasks: install_packages.yml
+  # vars:
+  #   ignore_workflow_errors: "{{ vro_ignore_package_errors }}"
+  with_fileglob: "{{ vro_packages }}"
+  loop_control:
+    loop_var: vro_package
+  when: |
+    vro_install_packages|bool and
+    vro_auth_provider is defined
+
 # - include_tasks: add_plugin_endpoints.yml
 #   vars:
 #     ignore_workflow_errors: "{{ vro_ignore_plugin_errors }}"

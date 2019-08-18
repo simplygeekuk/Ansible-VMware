@@ -1,0 +1,29 @@
+---
+- name: "Upload vRO Plugin: {{ vro_plugin }}"
+  command: >
+    curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
+    -F "file=@{{ vro_plugin }}"
+    https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation
+  delegate_to: localhost
+  register: vro_plugin_upload_response
+  no_log: true
+
+# - name: "Install Package: {{ vro_package }}"
+#   uri:
+#     url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages"
+#     user: "{{ vro_api_username }}"
+#     password: "{{ vro_api_password }}"
+#     validate_certs: "{{ http_validate_certs }}"
+#     force_basic_auth: yes
+#     method: POST
+#     headers:
+#       Accept: "{{ http_Accept }}"
+#       ContentType: "multipart/form-data"
+#     body_format: form-urlencoded
+#     body:
+#       file: "{{ vro_package }}"
+#     status_code: [200]
+#   register: vro_package_install_response
+#   delegate_to: localhost
+#   delegate_facts: true
+

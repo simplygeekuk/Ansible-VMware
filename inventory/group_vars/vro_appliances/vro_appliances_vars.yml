@@ -32,6 +32,16 @@ vro_auth_adminGroup: "vRO_SG_Role_Admins"
 vro_auth_adminGroupDomain: "{{ dns_default_domain }}"
 vro_auth_default_tenant: "vsphere.local"
 
+## Set to enable or disable if packages should be installed.
+## This will have a dependency on an authentication provider being configured
+## and the API user a member of the adminGroup.
+vro_install_packages: yes
+
+## Provide a list of packages that should be installed.
+## These packages should be placed in the files folder for the vmware_deploy_vro role.
+vro_packages:
+ - com.simplygeek.library.logger-1.1.0.package
+
 ## Set to enable or disable if plugin endpoints should be configured.
 ## This will have a dependency on an authentication provider being configured
 ## and the API user a member of the adminGroup.
