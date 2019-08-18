@@ -43,28 +43,28 @@ vro_ignore_plugin_errors: no
 
 ## Add vCenter Server Endpoints.
 ## If you also add the vAPI endpoint, ensure this service has been started.
-vcenter_plugin_endpoints:
-  - hostname: "{{ vcenter_hostname }}"
-    username: "{{ vcenter_plugin_endpoint_username }}"
-    password: "{{ vcenter_plugin_endpoint_password }}"
-    domain: "{{ dns_default_domain }}"
-    add_vapi_endpoint: no
+# vcenter_plugin_endpoints:
+#   - hostname: "{{ vcenter_hostname }}"
+#     username: "{{ vcenter_plugin_endpoint_username }}"
+#     password: "{{ vcenter_plugin_endpoint_password }}"
+#     domain: "{{ dns_default_domain }}"
+#     add_vapi_endpoint: no
 
 ## Add vRA Cafe Endpoints.
 # cafe_plugin_endpoints:
-#   - name: Simplygeek2
+#   - name: Simplygeek
 #     hostname: vra.sgroot.local
 #     tenant: sg
 #     username: "{{ cafe_plugin_endpoint_username }}"
 #     password: "{{ cafe_plugin_endpoint_password }}"
 
 ## Add HTTP Restful API Endpoints.
-## Only Basic and OAuth2 is supported currently.
+## Supported Authentication types are: Basic and OAuth2.
 ## Uncomment and set proxy section if rest host is behind a proxy.
 # rest_plugin_endpoints:
-#   - name: NSX_Management
+#   - name: Rest Host
 #     url: https://sg1-nsx001.sgroot.local/api
-#     auth_type: Basic
+#     auth_type: None
 #     username: "{{ rest_plugin_endpoint_username }}"
 #     password: "{{ rest_plugin_endpoint_password }}"
 #     # oauth2_token: "{{ rest_plugin_endpoint_token }}"
@@ -85,4 +85,15 @@ vcenter_plugin_endpoints:
 #     username: "{{ powershell_plugin_endpoint_username }}"
 #     password: "{{ powershell_plugin_endpoint_password }}"
 
-
+## Add SOAP API Endpoints.
+## Supported Authentication types are: Basic, Digest and Kerberos.
+## Uncomment and set proxy section if SOAP host is behind a proxy.
+# soap_plugin_endpoints:
+#   - name: Soap Host
+#     wsdl_uri: someuri.example.com
+#     auth_type: Basic
+#     username: "{{ soap_plugin_endpoint_username }}"
+#     password: "{{ soap_plugin_endpoint_password }}"
+#     # kerberos_spn: someuser@example.local
+#     # proxy_host: proxy.example.com
+#     # proxy_port: 8080
