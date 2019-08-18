@@ -6,7 +6,7 @@
     https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation
   delegate_to: localhost
   register: vro_plugin_upload_response
-  #no_log: true
+  no_log: true
 
 - name: Set Plugin ID
   set_fact:
