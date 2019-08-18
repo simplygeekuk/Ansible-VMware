@@ -1,0 +1,42 @@
+{
+  "parameters": [
+    {
+      "scope": "local",
+      "name": "name",
+      "type": "string",
+      "value": {"string": {"value": "{{ soap_plugin.name }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "wsdlUri",
+      "type": "string",
+      "value": {"string": {"value": "{{ soap_plugin.wsdl_uri }}"}}
+    },
+    {% if soap_plugin.auth_type is defined %}
+        {% if (soap_plugin.auth_type|lower == 'basic') or (soap_plugin.auth_type|lower == 'Digest') %}
+            {% include 'soap_basic_auth.json' %}
+        {% elif soap_plugin.auth_type|lower == 'kerberos' %}
+            {% include 'soap_kerberos_auth.json' %}
+        {% else %}
+            {% include 'soap_no_auth.json' %}
+        {% endif %}
+    {% else %}
+        {% include 'soap_no_auth.json' %}
+    {% endif %}
+    {% if soap_plugin.proxy_host is defined %}
+        {% include 'soap_proxy_host.json' %}
+    {% endif %}
+    {
+      "scope": "local",
+      "name": "connectionTimeout",
+      "type": "number",
+      "value": {"number": {"value": "30" }}
+    },
+    {
+      "scope": "local",
+      "name": "requestTimeout",
+      "type": "number",
+      "value": {"number": {"value": "60" }}
+    }
+  ]
+}

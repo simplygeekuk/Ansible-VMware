@@ -1,0 +1,6 @@
+{
+    "scope": "local",
+    "name": "authenticationType",
+    "type": "string",
+    "value": {"string": {"value": "None"}}
+  },

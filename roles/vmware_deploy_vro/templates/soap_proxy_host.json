@@ -1,0 +1,18 @@
+  {
+    "scope": "local",
+    "name": "useProxy",
+    "type": "boolean",
+    "value": {"boolean": {"value": "True"}}
+  },
+  {
+    "scope": "local",
+    "name": "proxyHost",
+    "type": "string",
+    "value": {"string": {"value": "{{ soap_plugin.proxy_host }}"}}
+  },
+  {
+    "scope": "local",
+    "name": "proxyPort",
+    "type": "number",
+    "value": {"number": {"value": "{{ soap_plugin.proxy_port }}"}}
+  },

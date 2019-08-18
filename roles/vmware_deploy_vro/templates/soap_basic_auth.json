@@ -1,0 +1,24 @@
+  {
+    "scope": "local",
+    "name": "authenticationType",
+    "type": "string",
+    "value": {"string": {"value": "{{ soap_plugin.auth_type }}"}}
+  },
+  {
+    "scope": "local",
+    "name": "sessionMode",
+    "type": "string",
+    "value": {"string": {"value": "Shared Session"}}
+  },
+  {
+    "scope": "local",
+    "name": "username",
+    "type": "string",
+    "value": {"string": {"value": "{{ soap_plugin.username }}"}}
+  },
+  {
+    "scope": "local",
+    "name": "password",
+    "type": "SecureString",
+    "value": {"string": {"value": "{{ soap_plugin.password }}"}}
+  },

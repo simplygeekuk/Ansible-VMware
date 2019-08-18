@@ -32,3 +32,7 @@ rest_plugin_endpoint_password: VMwar3!!
 # PowerShell Plugin Endpoint.
 powershell_plugin_endpoint_username: Administrator
 powershell_plugin_endpoint_password: VMwar3!!
+
+# SOAP Plugin Endpoint.
+soap_plugin_endpoint_username: admin
+soap_plugin_endpoint_password: VMwar3!!

@@ -26,3 +26,10 @@
   loop_control:
     loop_var: powershell_plugin
   when: powershell_plugin_endpoints is defined
+
+- name: Adding SOAP Host Plugin Endpoints
+  include_tasks: add_soap_plugin_endpoints.yml
+  loop: "{{ soap_plugin_endpoints }}"
+  loop_control:
+    loop_var: soap_plugin
+  when: soap_plugin_endpoints is defined
