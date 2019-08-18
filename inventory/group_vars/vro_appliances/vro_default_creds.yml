@@ -22,3 +22,13 @@ vcenter_plugin_endpoint_password: "{{ vcenter_password }}"
 # vRA Cafe Plugin Endpoint.
 cafe_plugin_endpoint_username: svc_vro_vra@sgroot.local
 cafe_plugin_endpoint_password: VMwar3!!
+
+rest_plugin_endpoint_username: admin
+rest_plugin_endpoint_password: VMwar3!!
+# rest_plugin_endpoint_token: ABCDEFGHIJKLMNOPQRSTUVWXYZ
+# rest_plugin_endpoint_proxy_username: user
+# rest_plugin_endpoint_proxy_password: password
+
+# PowerShell Plugin Endpoint.
+powershell_plugin_endpoint_username: Administrator
+powershell_plugin_endpoint_password: VMwar3!!
