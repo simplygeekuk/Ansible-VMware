@@ -17,7 +17,11 @@
             {% include 'rest_basic_auth.json' %}
         {% elif rest_plugin.auth_type|lower == 'oauth2' %}
             {% include 'rest_oauth2_auth.json' %}
+        {% else %}
+            {% include 'rest_no_auth.json' %}
         {% endif %}
+    {% else %}
+        {% include 'rest_no_auth.json' %}
     {% endif %}
     {% if rest_plugin.proxy_host is defined %}
         {% include 'rest_proxy_host.json' %}
@@ -36,6 +40,18 @@
       "name": "ignoreWarnings",
       "type": "boolean",
       "value": {"boolean": {"value": "true" }}
+    },
+    {
+      "scope": "local",
+      "name": "connectionTimeout",
+      "type": "number",
+      "value": {"number": {"value": "30" }}
+    },
+    {
+      "scope": "local",
+      "name": "operationTimeout",
+      "type": "number",
+      "value": {"number": {"value": "60" }}
     }
   ]
 }
