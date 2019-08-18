@@ -25,17 +25,18 @@ vro_auth_default_tenant: "vsphere.local"
 
 vro_remove_existing: yes
 
-# These values will be populated based on those provided above or elsewhere.
-ova_networks:
-  "Network 1": "{{ ova_network_label }}"
-ova_properties:
-  vami.hostname: "{{ inventory_hostname|lower }}"
-  vami.ip0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_ip_address }}"
-  vami.netmask0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_mask }}"
-  vami.gateway.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_gateway }}"
-  vami.DNS.VMware_vRealize_Orchestrator_Appliance: "{{ dns_server_1 }}"
-  vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
-  vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
-  va-ssh-enabled: "{{ vro_enable_ssh }}"
-  varoot-password: "{{ vro_root_password }}"
-  ceip_enabled: "{{ vro_enable_telemetry }}"
+## Set the OVF Appliance Options/Properties.
+## These values will be populated based on other variables but can be overridden here.
+# ova_networks:
+#   "Network 1": "{{ ova_network_label }}"
+# ova_properties:
+#   vami.hostname: "{{ inventory_hostname|lower }}"
+#   vami.ip0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_ip_address }}"
+#   vami.netmask0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_mask }}"
+#   vami.gateway.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_gateway }}"
+#   vami.DNS.VMware_vRealize_Orchestrator_Appliance: "{{ dns_server_1 }}"
+#   vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+#   vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+#   va-ssh-enabled: "{{ vro_enable_ssh }}"
+#   varoot-password: "{{ vro_root_password }}"
+#   ceip_enabled: "{{ vro_enable_telemetry }}"
