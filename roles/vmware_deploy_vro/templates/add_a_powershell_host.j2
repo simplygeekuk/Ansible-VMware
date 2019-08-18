@@ -1,0 +1,70 @@
+{
+  "parameters": [
+    {
+      "scope": "local",
+      "name": "name",
+      "type": "string",
+      "value": {"string": {"value": "{{ powershell_plugin.name }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "hostName",
+      "type": "string",
+      "value": {"string": {"value": "{{ powershell_plugin.hostname }}"}}
+    },
+    {
+      "scope": "local",
+      "name": "port",
+      "type": "string",
+      "value": {"string": {"value": "{{ powershell_plugin.port }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "type",
+      "type": "string",
+      "value": {"string": {"value": "WinRM" }}
+    },
+    {
+      "scope": "local",
+      "name": "transportProtocol",
+      "type": "string",
+      "value": {"string": {"value": "HTTPS" }}
+    },
+    {
+      "scope": "local",
+      "name": "acceptAllCertificates",
+      "type": "boolean",
+      "value": {"boolean": {"value": "true" }}
+    },
+    {
+      "scope": "local",
+      "name": "authentication",
+      "type": "string",
+      "value": {"string": {"value": "{{ powershell_plugin.auth_type }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "sessionMode",
+      "type": "string",
+      "value": {"string": {"value": "Shared Session" }}
+    },
+    {
+      "scope": "local",
+      "name": "username",
+      "type": "string",
+      "value": {"string": {"value": "{{ powershell_plugin.username }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "password",
+      "type": "SecureString",
+      "value": {"string": {"value": "{{ powershell_plugin.password }}" }}
+    },
+    {
+      "scope": "local",
+      "name": "shellCodePage",
+      "type": "string",
+      "value": {"string": {"value": "UTF8" }}
+    }
+  ]
+}
