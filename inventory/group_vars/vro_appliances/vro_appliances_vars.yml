@@ -61,22 +61,24 @@ vcenter_plugin_endpoints:
 # Add HTTP Restful API Endpoints.
 # Only Basic and OAuth2 is supported currently.
 # Uncomment and set proxy section if rest host is behind a proxy.
-rest_plugin_endpoints:
-  - name: NSX_Management
-    url: https://sg1-nsx001.sgroot.local/api
-    auth_type: Basic
-    username: admin
-    password: VMwar3!!
-    # oauth2_token: ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    # proxy_host: proxy.example.com
-    # proxy_port: 8080
-    ## Proxy username and password can be left commented if proxy doesn't require authentication
-    # proxy_username: user
-    # proxy_password: password
-    host_verification: no
+# rest_plugin_endpoints:
+#   - name: NSX_Management
+#     url: https://sg1-nsx001.sgroot.local/api
+#     auth_type: Basic
+#     username: "{{ rest_plugin_endpoint_username }}"
+#     password: "{{ rest_plugin_endpoint_password }}"
+#     # oauth2_token: "{{ rest_plugin_endpoint_token }}"
+#     # proxy_host: proxy.example.com
+#     # proxy_port: 8080
+#     ## Proxy username and password can be left commented if proxy doesn't require authentication
+#     # proxy_username: "{{ rest_plugin_endpoint_proxy_username }}"
+#     # proxy_password: "{{ rest_plugin_endpoint_proxy_password }}"
+#     host_verification: no
 
-# powershell_plugin_endpoints:
-#   - name: 
-#     host: 
-#     port: 
-#     auth_type: 
+powershell_plugin_endpoints:
+  - name: PowerShell Host
+    host: 
+    port: 443
+    auth_type: Basic
+    username: "{{ powershell_plugin_endpoint_username }}"
+    password: "{{ powershell_plugin_endpoint_password }}"
