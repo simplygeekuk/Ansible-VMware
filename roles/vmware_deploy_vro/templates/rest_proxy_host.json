@@ -13,8 +13,8 @@
   {
     "scope": "local",
     "name": "proxyPort",
-    "type": "string",
-    "value": {"string": {"value": "{{ rest_plugin.proxy_port }}"}}
+    "type": "number",
+    "value": {"number": {"value": "{{ rest_plugin.proxy_port }}"}}
   },
   {
     "scope": "local",
