@@ -14,16 +14,7 @@ ova_deployment_cluster: "{{ vcenter_cluster }}"
 ova_deployment_datastore: "{{ vcenter_datastore }}"
 ova_deployment_folder: "{{ vcenter_folder }}"
 
-# Auth provider is one of 'CAFE' or 'VSPHERE'
-vro_auth_provider: CAFE
-vro_auth_hostname: vra.sgroot.local
-vro_auth_username: defaultadmin
-vro_auth_password: VMwar3!!
-vro_auth_adminGroup: "vSphere-Admins"
-vro_auth_adminGroupDomain: "{{ dns_default_domain }}"
-vro_auth_default_tenant: "vsphere.local"
-
-vro_remove_existing: yes
+# vro_remove_existing: yes
 
 ## Set the OVF Appliance Options/Properties.
 ## These values will be populated based on other variables but can be overridden here.
