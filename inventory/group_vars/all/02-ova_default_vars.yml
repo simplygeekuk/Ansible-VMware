@@ -1,9 +1,0 @@
----
-# OVA Default Variables
-ova_validate_certs: no
-ova_allow_duplicates: no
-ova_power_on_after_deploy: yes
-ova_wait_for_power_on: yes
-ova_wait_for_ip_address: yes
-
-ova_deployment_disk_type: thin

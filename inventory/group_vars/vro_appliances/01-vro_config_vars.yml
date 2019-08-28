@@ -1,0 +1,8 @@
+---
+## This is a global variables file that will apply to all vRO appliances.
+## If you need to configure these per appliance, then copy the required variables
+## to the host.yml file in host_vars to override.
+
+## Provide a list of packages that should be installed.
+vro_packages:
+ - com.simplygeek.library.logger-1.1.0.package

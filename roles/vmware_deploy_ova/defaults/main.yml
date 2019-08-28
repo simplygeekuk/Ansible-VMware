@@ -1,2 +1,22 @@
 ---
-# defaults file for roles/vmware_deploy_ova
+## Whether or not certificate verification should be enabled against
+## the target host the OVA is being imported to.
+ova_validate_certs: no
+
+## Whether or not duplicates of the same name are allowed.
+ova_allow_duplicates: no
+
+## Whether or not the appliance should be powered on once the OVA
+## import process has completed.
+ova_power_on_after_deploy: yes
+
+## Whether or not the module should wait for the appliance to power on
+## after the OVA has been imported and powered on.
+ova_wait_for_power_on: yes
+
+## Whether or not the module should wait for the IP address to become
+## available in vCenter after importing and powering on the OVA.
+ova_wait_for_ip_address: yes
+
+## The default disk format to use for the imported OVA's disks.
+ova_deployment_disk_type: thin

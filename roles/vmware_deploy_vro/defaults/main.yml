@@ -2,7 +2,7 @@
 # HTTP REST API Variables
 http_content_type: "application/json"
 http_Accept: "application/json"
-http_validate_certs: yes
+http_validate_certs: no
 http_body_format: "json"
 
 ## Set the ports used by the vco and vco-controlcenter APIs.
@@ -10,16 +10,32 @@ vro_api_port: 8281
 vro_cc_api_port: 8283
 
 ## Enable SSH access to the appliance.
-vro_enable_ssh: "False"
+vro_enable_ssh: "True"
 
 ## Enable Customer Experience Improvement Program.
-vro_enable_telemetry: "True"
+vro_enable_telemetry: "False"
+
+### Set to enable or disable if packages should be installed.
+## This will have a dependency on an authentication provider being configured
+## and the API user a member of the adminGroup.
+vro_install_packages: yes
+
+## If a package version is already installed, force the package to be installed.
+vro_force_install_packages: no
+
+## Set the source location of where packages can be found.
+## Available options are 'local'.
+## For local, the packages should be placed in the 'files' folder in the vmware_deploy_vro role.
+vro_package_source: local
 
 ## Set to enable or disable if plugin endpoints should be configured.
 ## This will have a dependency on an authentication provider being configured
 ## and the API user a member of the adminGroup.
 vro_configure_plugin_endpoints: yes
 
+## If a plugin is already installed, force the plugin to be installed.
+vro_force_plugin_install: no
+
 ## Set if you would like to ignore any errors when adding plugin endpoints.
-## This can be useful when re-running the playbook fails for duplicate plugins.
+## This can be useful if re-running the playbook fails with duplicate endpoints.
 vro_ignore_plugin_errors: no
