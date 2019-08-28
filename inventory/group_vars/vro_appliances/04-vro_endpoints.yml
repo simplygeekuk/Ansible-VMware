@@ -1,0 +1,57 @@
+---
+## Add vCenter Server Endpoints.
+## If you also add the vAPI endpoint, ensure this service has been started.
+# vcenter_plugin_endpoints:
+#   - hostname: "{{ vcenter_hostname }}"
+#     username: "{{ vcenter_plugin_endpoint_username }}"
+#     password: "{{ vcenter_plugin_endpoint_password }}"
+#     domain: "{{ dns_default_domain }}"
+#     add_vapi_endpoint: no
+
+## Add vRA Cafe Endpoints.
+# cafe_plugin_endpoints:
+#   - name: Simplygeek
+#     hostname: vra.sgroot.local
+#     tenant: sg
+#     username: "{{ cafe_plugin_endpoint_username }}"
+#     password: "{{ cafe_plugin_endpoint_password }}"
+
+## Add HTTP Restful API Endpoints.
+## Supported Authentication types are: Basic and OAuth2.
+## Uncomment and set proxy section if rest host is behind a proxy.
+# rest_plugin_endpoints:
+#   - name: Rest Host
+#     url: https://sg1-nsx001.sgroot.local/api
+#     auth_type: None
+#     username: "{{ rest_plugin_endpoint_username }}"
+#     password: "{{ rest_plugin_endpoint_password }}"
+#     # oauth2_token: "{{ rest_plugin_endpoint_token }}"
+#     # proxy_host: proxy.example.com
+#     # proxy_port: 8080
+#     ## Proxy username and password can be left commented if proxy doesn't require authentication
+#     # proxy_username: "{{ rest_plugin_endpoint_proxy_username }}"
+#     # proxy_password: "{{ rest_plugin_endpoint_proxy_password }}"
+#     host_verification: no
+
+## Add PowerShell Host Endpoints.
+## Supported auth_type's are Basic and Kerberos.
+# powershell_plugin_endpoints:
+#   - name: PowerShell Host
+#     hostname: pshost.example.com
+#     port: 443
+#     auth_type: Basic
+#     username: "{{ powershell_plugin_endpoint_username }}"
+#     password: "{{ powershell_plugin_endpoint_password }}"
+
+## Add SOAP API Endpoints.
+## Supported Authentication types are: Basic, Digest and Kerberos.
+## Uncomment and set proxy section if SOAP host is behind a proxy.
+# soap_plugin_endpoints:
+#   - name: Soap Host
+#     wsdl_uri: someuri.example.com
+#     auth_type: Basic
+#     username: "{{ soap_plugin_endpoint_username }}"
+#     password: "{{ soap_plugin_endpoint_password }}"
+#     # kerberos_spn: someuser@example.local
+#     # proxy_host: proxy.example.com
+#     # proxy_port: 8080

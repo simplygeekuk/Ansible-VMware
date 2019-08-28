@@ -1,0 +1,16 @@
+---
+## Set the auth provider to use for vRO authentication.
+## Auth provider is one of 'CAFE' or 'VSPHERE'.
+
+## Uncomment these lines to enable VSPHERE Authentication.
+# vro_auth_provider: VSPHERE
+# vro_adminGroup: "vro-admins"
+# vro_adminGroupDomain: "{{ dns_default_domain }}"
+# vro_auth_default_tenant: "vsphere.local"
+
+## Uncomment these lines to enable vRA (CAFE) Authentication.
+vro_auth_provider: CAFE
+vro_auth_hostname: vra.sgroot.local
+vro_auth_adminGroup: "vRO_SG_Role_Admins"
+vro_auth_adminGroupDomain: "{{ dns_default_domain }}"
+vro_auth_default_tenant: "vsphere.local"
