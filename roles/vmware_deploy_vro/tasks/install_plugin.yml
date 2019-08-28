@@ -2,30 +2,12 @@
 - name: "Upload vRO Plugin: {{ vro_plugin }}"
   command: >
     curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
+    -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
     -F "file=@{{ vro_plugin }}"
     https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation
   delegate_to: localhost
   register: vro_plugin_upload_response
   no_log: true
-
-# - name: "Upload vRO Plugin: {{ vro_plugin }}"
-#   uri:
-#     url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation"
-#     user: "{{ vro_root_username | default(vro_default_root_username) }}"
-#     password: "{{ vro_root_password | default(vro_default_root_password) }}"
-#     validate_certs: "{{ http_validate_certs }}"
-#     force_basic_auth: yes
-#     method: POST
-#     headers:
-#       Accept: "{{ http_Accept }}"
-#       ContentType: "multipart/form-data"
-#     body_format: form-urlencoded
-#     body:
-#       file: "{{ vro_plugin }}"
-#     status_code: [200]
-#   register: vro_plugin_install_response
-#   delegate_to: localhost
-#   delegate_facts: true
 
 - name: Set Plugin ID
   set_fact:
@@ -44,7 +26,7 @@
     body_format: "{{ http_body_format }}"
     body:
       eulaAccepted: true
-      forceInstall: true
+      forceInstall: "{{ vro_force_plugin_install }}"
     status_code: [200]
   register: vro_plugin_install_response
   delegate_to: localhost
