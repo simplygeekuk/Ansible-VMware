@@ -19,3 +19,7 @@ ova_deployment_datastore: "{{ vcenter_datastore }}"
 
 ## Set the root password for this appliance, or leave commented out to use the default.
 # vro_root_password: "VMwar3!!"
+
+ansible_user: root
+ansible_password: "{{ vro_root_password | default(vro_default_root_password) }}"
+ansible_host: "{{ ova_network_ip_address }}"
