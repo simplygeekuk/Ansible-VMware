@@ -1,29 +1,30 @@
 ---
-- name: "Upload vRO Plugin: {{ vro_plugin }}"
-  command: >
-    curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
-    -F "file=@{{ vro_plugin }}"
-    https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation
+- name: "Check if Package: {{ vro_package.split('/') | last }} is installed."
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages/{{ (vro_package.split('/') | last).split('.')[:-1] | join('.') }}"
+    user: "{{ vro_api_username }}"
+    password: "{{ vro_api_password }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: GET
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200, 404]
+  register: vro_package_response
   delegate_to: localhost
-  register: vro_plugin_upload_response
+  delegate_facts: true
+
+- name: "Upload and Install Package: {{ vro_package.split('/') | last }}"
+  command: >
+    curl -k -XPOST -u "{{ vro_api_username }}":"{{ vro_api_password }}"
+    -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
+    -F "file=@{{ vro_package }}"
+    https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages?overwrite=false&importConfigurationAttributeValues=true
+  args:
+    warn: false
+  delegate_to: localhost
+  register: vro_package_upload_response
   no_log: true
-
-# - name: "Install Package: {{ vro_package }}"
-#   uri:
-#     url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages"
-#     user: "{{ vro_api_username }}"
-#     password: "{{ vro_api_password }}"
-#     validate_certs: "{{ http_validate_certs }}"
-#     force_basic_auth: yes
-#     method: POST
-#     headers:
-#       Accept: "{{ http_Accept }}"
-#       ContentType: "multipart/form-data"
-#     body_format: form-urlencoded
-#     body:
-#       file: "{{ vro_package }}"
-#     status_code: [200]
-#   register: vro_package_install_response
-#   delegate_to: localhost
-#   delegate_facts: true
-
+  when: |
+    vro_package_response.status == 404 or
+    vro_force_install_packages|bool
