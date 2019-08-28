@@ -24,13 +24,3 @@
     inject_ovf_env: yes
   delegate_to: localhost
   register: ova_deployed
-#   async: 1000
-#   poll: 0
-
-# - name: Check on OVA Deployment
-#   async_status:
-#     jid: "{{ ova_deployed.ansible_job_id }}"
-#   delegate_to: localhost
-#   until: check_result.finished
-#   register: check_result
-#   retries: 1000
