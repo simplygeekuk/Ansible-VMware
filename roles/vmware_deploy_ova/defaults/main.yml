@@ -1,4 +1,11 @@
 ---
+## Set where the OVA file should be sourced.
+## Current options are 'local' and 'http'.
+## If local is set, then the ova_file will be sourced from the defined ova_path.
+## If http is set, then the ova_file will be downloaded to the defined ova_path.
+## For http, the ova_url also needs to be set.
+ova_source: "local"
+
 ## Whether or not certificate verification should be enabled against
 ## the target host the OVA is being imported to.
 ova_validate_certs: no
@@ -10,13 +17,9 @@ ova_allow_duplicates: no
 ## import process has completed.
 ova_power_on_after_deploy: yes
 
-## Whether or not the module should wait for the appliance to power on
-## after the OVA has been imported and powered on.
-ova_wait_for_power_on: yes
-
 ## Whether or not the module should wait for the IP address to become
-## available in vCenter after importing and powering on the OVA.
-ova_wait_for_ip_address: yes
+## available in vCenter after powering on the OVA.
+ova_wait_for_ip_address: no
 
 ## The default disk format to use for the imported OVA's disks.
 ova_deployment_disk_type: thin
