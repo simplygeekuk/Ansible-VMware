@@ -1,0 +1,13 @@
+---
+## Set vApp properties on the virtual machine.
+## This is required when OVA properties are set to userConfigurable: false
+## and cannot be injected with the vmware_deploy_ovf module.
+- name: Set vApp Properties
+  vmware_guest: 
+    hostname: "{{ ova_deployment_hostname }}"
+    username: "{{ ova_deployment_username }}"
+    password: "{{ ova_deployment_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    name: "{{ inventory_hostname_short | upper }}"
+    vapp_properties: "{{ vapp_properties }}"
+  delegate_to: localhost
