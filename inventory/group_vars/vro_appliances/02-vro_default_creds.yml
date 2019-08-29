@@ -6,8 +6,8 @@
 ## These are the default credentials that will be configured for all vRO appliances.
 ## These can be overridden by setting vro_root_username and vro_root_password per
 ## host in host_vars.
-vro_default_root_username: root
-vro_default_root_password: "VMwar3!!"
+vro_root_username: root
+vro_root_password: "VMwar3!!"
 
 ## The following credentials are used for BASIC auth to the vco API.
 ## Note that this API user must be a member of the vro_auth_adminGroup.

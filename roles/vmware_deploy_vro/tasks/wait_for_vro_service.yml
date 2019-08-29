@@ -2,8 +2,8 @@
 - name: Wait for vRO service to start
   uri:
     url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/server/status"
-    user: "{{ vro_root_username | default(vro_default_root_username) }}"
-    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    user: "{{ vro_root_username }}"
+    password: "{{ vro_root_password }}"
     validate_certs: "{{ http_validate_certs }}"
     force_basic_auth: yes
     method: GET

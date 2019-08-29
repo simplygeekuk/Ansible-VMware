@@ -1,12 +1,12 @@
 ---
 ## Add vCenter Server Endpoints.
 ## If you also add the vAPI endpoint, ensure this service has been started.
-# vcenter_plugin_endpoints:
-#   - hostname: "{{ vcenter_hostname }}"
-#     username: "{{ vcenter_plugin_endpoint_username }}"
-#     password: "{{ vcenter_plugin_endpoint_password }}"
-#     domain: "{{ dns_domain }}"
-#     add_vapi_endpoint: no
+vcenter_plugin_endpoints:
+  - hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_plugin_endpoint_username }}"
+    password: "{{ vcenter_plugin_endpoint_password }}"
+    domain: "{{ dns_domain }}"
+    add_vapi_endpoint: no
 
 ## Add vRA Cafe Endpoints.
 # cafe_plugin_endpoints:
