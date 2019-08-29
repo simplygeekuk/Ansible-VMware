@@ -1,4 +1,11 @@
 ---
+- name: Check that OVA file exists.
+  stat:
+    path: "{{ role_path }}/files/certs/{{ inventory_hostname | lower }}.pem"
+    get_checksum: no
+  delegate_to: localhost
+  register: check_cert_exists
+
 - name: Get SSL Certificate Info
   uri:
     url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/info"
@@ -18,14 +25,16 @@
   command: >
     curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
-    -F "file=@{{ role_path }}/files/certs/{{ inventory_hostname }}.pem"
-    https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/import/pem?pemPassword=password
+    -F "file=@{{ role_path }}/files/certs/{{ inventory_hostname | lower }}.pem"
+    https://{{ inventory_hostname | lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/import/pem?pemPassword=password
   args:
     warn: false
   delegate_to: localhost
   register: vro_ssl_import_response
   no_log: true
-  when: vro_ssl_info.json.sslCertificate.organization == "VMware"
+  when: | 
+    vro_ssl_info.json.sslCertificate.organization == "VMware" and
+    check_cert_exists.stat.exists|bool
 
 - name: Set Certificate ID
   set_fact:
