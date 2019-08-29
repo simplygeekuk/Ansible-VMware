@@ -12,14 +12,16 @@ Requirements
 Role Variables
 --------------
 
-## Default variables that have been defined in defaults/main.yml
+### Default variables that have been defined in defaults/main.yml
 
   \# Set where the OVA file should be sourced.
   \# Current options are 'local' and 'http'.
   \# If local is set, then the ova_file will be sourced from the defined ova_path.
   \# If http is set, then the ova_file will be downloaded to the defined ova_path.
   \# For http, the ova_url also needs to be set.
-  ```ova_source: "local"```
+  ```
+  ova_source: "local"
+  ```
 
   \# Whether or not certificate verification should be enabled against
   \# the target host the OVA is being imported to.
