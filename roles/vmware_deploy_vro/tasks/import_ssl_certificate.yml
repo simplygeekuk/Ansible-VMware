@@ -1,0 +1,70 @@
+---
+- name: Get SSL Certificate Info
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/info"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: GET
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200]
+  register: vro_ssl_info
+  delegate_to: localhost
+  delegate_facts: true
+
+- name: Install SSL Certificate
+  command: >
+    curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
+    -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
+    -F "file=@{{ role_path }}/files/certs/{{ inventory_hostname }}.pem"
+    https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/import/pem?pemPassword=password
+  args:
+    warn: false
+  delegate_to: localhost
+  register: vro_ssl_import_response
+  no_log: true
+  when: vro_ssl_info.json.sslCertificate.organization == "VMware"
+
+- name: Set Certificate ID
+  set_fact:
+    vro_certificate_id: "{{ (vro_ssl_import_response.stdout | from_json).id }}"
+  when: vro_ssl_import_response.changed|bool
+
+- name: Complete SSL Certificate Import
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/import/pem/{{ vro_certificate_id }}/finish"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200]
+  register: vro_ssl_import_finish_response
+  delegate_to: localhost
+  delegate_facts: true
+  when: vro_ssl_import_response.changed|bool
+  changed_when: vro_ssl_import_finish_response.status == 200
+
+- name: Restart Service
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/server/status/restart"
+    user: "{{ vro_root_username | default(vro_default_root_username) }}"
+    password: "{{ vro_root_password | default(vro_default_root_password) }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [201]
+  register: vro_cc_restarted_response
+  delegate_to: localhost
+  delegate_facts: true
+  when: vro_ssl_import_response.changed|bool
+  changed_when: vro_cc_restarted_response.status == 201
+
+- include_tasks: wait_for_vro_service.yml
+  when: vro_cc_restarted_response.changed|bool

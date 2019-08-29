@@ -15,6 +15,11 @@ vro_enable_ssh: "True"
 ## Enable Customer Experience Improvement Program.
 vro_enable_telemetry: "False"
 
+## Set to 'yes' to default to using self-signed certificates otherwise
+## provide the certificate file in PEM format using the host name as
+## it has been defined in the hosts file (fqdn) with the extension .pem.
+vro_use_selfsigned_certificate: no
+
 ### Set to enable or disable if packages should be installed.
 ## This will have a dependency on an authentication provider being configured
 ## and the API user a member of the adminGroup.
