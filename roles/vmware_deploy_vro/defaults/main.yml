@@ -6,7 +6,6 @@ ntp_servers:
   - "2.pool.ntp.org"
   - "3.pool.ntp.org"
 
-
 # HTTP REST API Variables
 http_content_type: "application/json"
 http_Accept: "application/json"

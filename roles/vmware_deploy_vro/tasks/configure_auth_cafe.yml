@@ -25,7 +25,6 @@
   register: auth_update_response
   delegate_to: localhost
   delegate_facts: true
-  #changed_when: auth_update_response.status == 200
 
 - name: "Validate Authentication Configuration for provider: {{ vro_auth_provider }}"
   uri:
@@ -73,25 +72,3 @@
   register: auth_post_validate_response
   delegate_to: localhost
   delegate_facts: true
-
-# - name: "Remove Authentication Configuration Wizard for provider: {{ vro_auth_provider }}"
-#   uri:
-#     url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/authentication/configuration/unregister/{{ auth_provider_id }}"
-#     user: "{{ vro_root_username | default(vro_default_root_username) }}"
-#     password: "{{ vro_root_password | default(vro_default_root_password) }}"
-#     validate_certs: "{{ http_validate_certs }}"
-#     force_basic_auth: yes
-#     method: DELETE
-#     headers:
-#       Accept: "{{ http_Accept }}"
-#     body_format: "{{ http_body_format }}"
-#     body:
-#       CAFE:
-#         force: true
-#         username: "{{ vro_auth_username }}"
-#     status_code: [200]
-#   register: auth_remove_response
-#   delegate_to: localhost
-#   delegate_facts: true
-#   changed_when: auth_remove_response == 200
-#   when: auth_post_validate_response.json.status != "OK"

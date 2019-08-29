@@ -15,4 +15,3 @@ ova_properties:
   va-ssh-enabled: "{{ vro_enable_ssh }}"
   varoot-password: "{{ vro_root_password | default(vro_default_root_password) }}"
   ceip_enabled: "{{ vro_enable_telemetry }}"
-
