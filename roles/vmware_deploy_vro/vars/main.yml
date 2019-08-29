@@ -5,13 +5,13 @@ ova_networks:
 
 ## Set the OVF Appliance Properties.
 ova_properties:
-  vami.hostname: "{{ inventory_hostname|lower }}"
+  vami.hostname: "{{ inventory_hostname | lower }}"
   vami.ip0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_ip_address }}"
   vami.netmask0.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_mask }}"
   vami.gateway.VMware_vRealize_Orchestrator_Appliance: "{{ ova_network_gateway }}"
   vami.DNS.VMware_vRealize_Orchestrator_Appliance: "{{ dns_servers | join(',') }}"
-  vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
-  vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_default_domain }}"
+  vami.domain.VMware_vRealize_Orchestrator_Appliance: "{{ dns_domain }}"
+  vami.searchpath.VMware_vRealize_Orchestrator_Appliance: "{{ dns_domain }}"
   va-ssh-enabled: "{{ vro_enable_ssh }}"
   varoot-password: "{{ vro_root_password | default(vro_default_root_password) }}"
   ceip_enabled: "{{ vro_enable_telemetry }}"
