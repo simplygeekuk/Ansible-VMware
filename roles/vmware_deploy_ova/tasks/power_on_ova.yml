@@ -3,7 +3,7 @@
 ## This is to allow vapp_properties to be configured before the 
 ## OVA is powered on.
 - name: Power On Virtual Machine
-  vmware_guest: 
+  vmware_guest:
     hostname: "{{ ova_deployment_hostname }}"
     username: "{{ ova_deployment_username }}"
     password: "{{ ova_deployment_password }}"

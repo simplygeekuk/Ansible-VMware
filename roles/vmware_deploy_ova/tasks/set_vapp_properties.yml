@@ -3,7 +3,7 @@
 ## This is required when OVA properties are set to userConfigurable: false
 ## and cannot be injected with the vmware_deploy_ovf module.
 - name: Set vApp Properties
-  vmware_guest: 
+  vmware_guest:
     hostname: "{{ ova_deployment_hostname }}"
     username: "{{ ova_deployment_username }}"
     password: "{{ ova_deployment_password }}"

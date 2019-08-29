@@ -4,7 +4,7 @@
 - name: Fail if OVA file is not found.
   fail:
     msg: "OVA file {{ ova_file }} not found in path {{ ova_path }}"
-  when: | 
+  when: |
     not (check_ova_file.stat.exists|bool) and
     ova_source == "local"
 
@@ -14,7 +14,7 @@
     not (check_ova_file.stat.exists|bool)
 
 - include_tasks: import_ova_template.yml
-  when: | 
+  when: |
     check_ova_file.stat.exists|bool or
     ova_file_download.changed|bool
 

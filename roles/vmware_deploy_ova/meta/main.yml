@@ -8,16 +8,21 @@ galaxy_info:
   min_ansible_version: 2.8
 
   platforms:
-  - name: VMware vCenter Server
+  - name: vCenter
     versions:
     - 6.0
     - 6.5
     - 6.7
+  - name: vSphere
+    version:
+    - 6.0
+    - 6.5
+    - 6.7
 
-  galaxy_tags: 
+  galaxy_tags:
   - vmware
+  - vsphere
   - ova
   - ovf
 
 dependencies: []
-  
