@@ -3,9 +3,25 @@
 
 - name: Fail if OVA file is not found.
   fail:
-    msg: "OVA file {{ ova_filename }} not found in path {{ ova_path }}"
-  when: ova_file.stat.exists|bool == False
+    msg: "OVA file {{ ova_file }} not found in path {{ ova_path }}"
+  when: | 
+    not (check_ova_file.stat.exists|bool) and
+    ova_source == "local"
+
+- include_tasks: download_ova_file.yml
+  when: |
+    ova_source|lower == "http" and
+    not (check_ova_file.stat.exists|bool)
 
 - include_tasks: import_ova_template.yml
-  when: ova_file.stat.exists|bool == True
+  when: | 
+    check_ova_file.stat.exists|bool or
+    ova_file_download.changed|bool
 
+- include_tasks: set_vapp_properties.yml
+  when: |
+    vapp_properties is defined and
+    ova_imported.changed|bool
+
+- include_tasks: power_on_ova.yml
+  when: ova_power_on_after_deploy|bool
