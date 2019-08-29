@@ -1,0 +1,6 @@
+---
+##
+loginsight_server:
+  host: "sg1-log001.sgroot.local"
+  port: 514
+  protocol: syslog
