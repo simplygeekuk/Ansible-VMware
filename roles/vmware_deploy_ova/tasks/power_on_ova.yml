@@ -1,0 +1,14 @@
+---
+## Power on operation is performed after the OVA is deployed.
+## This is to allow vapp_properties to be configured before the 
+## OVA is powered on.
+- name: Power On Virtual Machine
+  vmware_guest: 
+    hostname: "{{ ova_deployment_hostname }}"
+    username: "{{ ova_deployment_username }}"
+    password: "{{ ova_deployment_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    name: "{{ inventory_hostname_short | upper }}"
+    wait_for_ip_address: "{{ ova_wait_for_ip_address }}"
+    state: poweredon
+  delegate_to: localhost
