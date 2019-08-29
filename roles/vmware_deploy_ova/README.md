@@ -16,7 +16,7 @@ Role Variables
 
   Set where the OVA file should be sourced.
 
-  Current options are 'local' and 'http'.
+  Current options are '**local**' and '**http**'.
 
   If local is set, then the ova_file will be sourced from the defined ova_path.
 
