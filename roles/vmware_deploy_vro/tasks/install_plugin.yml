@@ -1,4 +1,5 @@
 ---
+# TODO: Add API call to get list of plugins and check if already installed.
 - name: "Upload vRO Plugin: {{ vro_plugin }}"
   command: >
     curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
@@ -52,4 +53,6 @@
     vro_plugin_finish_response.json.installPluginStates[0].state == "INSTALLED" or
     vro_plugin_finish_response.json.installPluginStates[0].state == "OVERWRITTEN"
 
-# TODO: need to add a task here to wait for the service to return.
+# Pause for 2 minutes to wait for vro-server auto restart.
+- pause:
+    minutes: 2
