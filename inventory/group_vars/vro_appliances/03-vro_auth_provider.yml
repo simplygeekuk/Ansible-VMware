@@ -4,6 +4,7 @@
 
 ## Uncomment these lines to enable VSPHERE Authentication.
 # vro_auth_provider: VSPHERE
+# vro_auth_hostname: sg1-vsa001.sgroot.local
 # vro_adminGroup: "vro-admins"
 # vro_adminGroupDomain: "{{ dns_domain }}"
 # vro_auth_default_tenant: "vsphere.local"
