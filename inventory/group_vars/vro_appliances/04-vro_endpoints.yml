@@ -5,7 +5,7 @@
 #   - hostname: "{{ vcenter_hostname }}"
 #     username: "{{ vcenter_plugin_endpoint_username }}"
 #     password: "{{ vcenter_plugin_endpoint_password }}"
-#     domain: "{{ dns_default_domain }}"
+#     domain: "{{ dns_domain }}"
 #     add_vapi_endpoint: no
 
 ## Add vRA Cafe Endpoints.
