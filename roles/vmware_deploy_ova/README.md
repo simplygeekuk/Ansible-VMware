@@ -18,11 +18,11 @@ Role Variables
 
   Current options are '**local**' and '**http**'.
 
-  If local is set, then the ova_file will be sourced from the defined ova_path.
+  If **local** is set, then the **ova_file** will be sourced from the defined **ova_path**.
 
-  If http is set, then the ova_file will be downloaded to the defined ova_path.
+  If **http** is set, then the **ova_file** will be downloaded to the defined **ova_path**.
 
-  For http, the ova_url also needs to be set.
+  For **http**, the **ova_url** also needs to be set.
   ```
   ova_source: "local"
   ```
@@ -94,7 +94,7 @@ Role Variables
 
 ### The following mandatory variables need to be set in roles that use this role:
 
-  A key:value for the network property.
+  A key:value pair for the network property.
   ```
   ova_networks:
     "key":"value"
@@ -105,7 +105,7 @@ Role Variables
     "Network 1": "label"
   ```
 
-  A dictionary of key: value pairs.
+  The OVA Properties as set of dictionary key: value pairs.
   ```
   ova_properties:
     "key": "value"
@@ -125,7 +125,7 @@ Role Variables
   ova_deployment_option: "option"
   ```
 
-  A list of dictionaries for the vapp properties, with userConfigurable set to true, for example:
+  The vApp Properties as list of dictionaries with userConfigurable set to true.
   ```
   vapp_properties: 
     - list of dict1
