@@ -1,0 +1,7 @@
+---
+- name: Download OVA file
+  get_url:
+    url: "{{ ova_url }}/{{ ova_file }}"
+    dest: "{{ ova_path }}"
+  register: ova_file_download
+  delegate_to: localhost
