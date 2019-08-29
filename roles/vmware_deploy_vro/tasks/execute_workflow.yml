@@ -39,7 +39,6 @@
       Accept: "{{ http_Accept }}"
       Content-Type: "{{ http_content_type }}"
     body_format: json
-    #body: "{{ lookup('template', 'add_a_vcenter_server_workflow.j2') }}"
     body: "{{ lookup('template', (workflow_name | replace(' ', '_') | lower) + '.j2') }}"
     status_code: [202]
   register: workflow_execute_response
