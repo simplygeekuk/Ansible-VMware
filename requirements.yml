@@ -1,0 +1,4 @@
+---
+# from galaxy
+- src: nmshadey.vmware_deploy_ova
+  name: vmware_deploy_ova
