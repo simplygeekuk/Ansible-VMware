@@ -1,7 +1,7 @@
 ---
-- name: "Check if Package: {{ vro_package.split('/') | last }} is installed."
+- name: "Check if Package: {{ vro_package }} is installed."
   uri:
-    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages/{{ (vro_package.split('/') | last).split('.')[:-1] | join('.') }}"
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages/{{ vro_package }}"
     user: "{{ vro_api_username }}"
     password: "{{ vro_api_password }}"
     validate_certs: "{{ http_validate_certs }}"
@@ -14,11 +14,11 @@
   delegate_to: localhost
   delegate_facts: true
 
-- name: "Upload and Install Package: {{ vro_package.split('/') | last }}"
+- name: "Upload and Install Package: {{ vro_package }}"
   command: >
     curl -k -XPOST -u "{{ vro_api_username }}":"{{ vro_api_password }}"
     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
-    -F "file=@{{ vro_package }}"
+    -F "file=@{{ role_path }}/files/packages/{{ vro_package }}"
     https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages?overwrite=false&importConfigurationAttributeValues=true
   args:
     warn: false

@@ -12,20 +12,20 @@
 - include_tasks: import_ssl_certificate.yml
   when: vro_use_selfsigned_certificate|bool == False
 
-- include_tasks: configure_ntp.yml
+# - include_tasks: configure_ntp.yml
 
 # - include_tasks: install_plugin.yml
-#   with_fileglob: "{{ vro_plugins }}"
+#   loop: "{{ vro_plugins }}"
 #   loop_control:
 #     loop_var: vro_plugin
 
-# - include_tasks: install_packages.yml
-#   with_fileglob: "{{ vro_packages }}"
-#   loop_control:
-#     loop_var: vro_package
-#   when: |
-#     vro_install_packages|bool and
-#     vro_auth_provider is defined
+- include_tasks: install_packages.yml
+  loop: "{{ vro_packages }}"
+  loop_control:
+    loop_var: vro_package
+  when: |
+    vro_install_packages|bool and
+    vro_auth_provider is defined
 
 # - include_tasks: add_plugin_endpoints.yml
 #   vars:

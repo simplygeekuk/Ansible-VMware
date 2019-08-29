@@ -3,7 +3,7 @@
   command: >
     curl -k -XPOST -u "{{ vro_root_username | default(vro_default_root_username) }}":"{{ vro_root_password | default(vro_default_root_password) }}"
     -H "Content-Type: multipart/form-data; charset=utf-8; boundary=__X_PAW_BOUNDARY__"
-    -F "file=@{{ vro_plugin }}"
+    -F "file=@{{ role_path }}/files/plugins/{{ vro_plugin }}"
     https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation
   args:
     warn: false
@@ -51,3 +51,5 @@
   changed_when: |
     vro_plugin_finish_response.json.installPluginStates[0].state == "INSTALLED" or
     vro_plugin_finish_response.json.installPluginStates[0].state == "OVERWRITTEN"
+
+# TODO: need to add a task here to wait for the service to return.
