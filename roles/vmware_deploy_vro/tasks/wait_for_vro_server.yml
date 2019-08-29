@@ -1,0 +1,18 @@
+---
+- name: Wait for vRO Server to Initialize
+  uri:
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/server"
+    user: "{{ vro_api_username }}"
+    password: "{{ vro_api_password }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: GET
+    headers:
+      Accept: "{{ http_Accept }}"
+    status_code: [200, 503]
+  register: response
+  delegate_to: localhost
+  delegate_facts: true
+  until: response.status == 200
+  retries: 100
+  delay: 10
