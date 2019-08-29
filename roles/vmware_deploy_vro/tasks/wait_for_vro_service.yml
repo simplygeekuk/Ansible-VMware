@@ -13,6 +13,6 @@
   register: response
   delegate_to: localhost
   delegate_facts: true
-  until: response.json.currentStatus == "RUNNING"
+  until: response.status == 200 and response.json.currentStatus == "RUNNING"
   retries: 50
   delay: 10
