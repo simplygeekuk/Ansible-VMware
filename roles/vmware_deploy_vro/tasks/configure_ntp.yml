@@ -1,0 +1,18 @@
+---
+- name: Ensure NTP is running and enabled.
+  service:
+    name: ntp
+    state: started
+    enabled: true
+
+- name: Generate ntp.conf file.
+  template:
+    src: ntp.conf.j2
+    dest: /etc/ntp.conf
+  register: ntp_conf_generated
+
+- name: Restart NTP to apply configuration changes
+  service:
+    name: ntp
+    state: restarted
+  when: ntp_conf_generated.changed|bool

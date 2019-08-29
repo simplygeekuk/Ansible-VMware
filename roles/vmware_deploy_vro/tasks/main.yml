@@ -12,6 +12,8 @@
 - include_tasks: import_ssl_certificate.yml
   when: vro_use_selfsigned_certificate|bool == False
 
+- include_tasks: configure_ntp.yml
+
 # - include_tasks: install_plugin.yml
 #   with_fileglob: "{{ vro_plugins }}"
 #   loop_control:
