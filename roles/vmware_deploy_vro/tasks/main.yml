@@ -6,6 +6,8 @@
 
 # - include_tasks: configure_hostname.yml
 
+# TODO: configure logging
+
 # - include_tasks: configure_auth_provider.yml
 #   when: vro_auth_provider is defined
 
@@ -14,10 +16,12 @@
 
 # - include_tasks: configure_ntp.yml
 
-# - include_tasks: install_plugin.yml
-#   loop: "{{ vro_plugins }}"
-#   loop_control:
-#     loop_var: vro_plugin
+- include_tasks: install_plugin.yml
+  loop: "{{ vro_plugins }}"
+  loop_control:
+    loop_var: vro_plugin
+
+- include_tasks: wait_for_vro_server.yml
 
 - include_tasks: install_packages.yml
   loop: "{{ vro_packages }}"
