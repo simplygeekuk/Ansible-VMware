@@ -12,14 +12,14 @@ Requirements
 Role Variables
 --------------
 
-Default variables that have been defined in defaults/main.yml
+## Default variables that have been defined in defaults/main.yml
 
   \# Set where the OVA file should be sourced.
   \# Current options are 'local' and 'http'.
   \# If local is set, then the ova_file will be sourced from the defined ova_path.
   \# If http is set, then the ova_file will be downloaded to the defined ova_path.
   \# For http, the ova_url also needs to be set.
-  ova_source: "local"
+  ```ova_source: "local"```
 
   \# Whether or not certificate verification should be enabled against
   \# the target host the OVA is being imported to.
@@ -39,7 +39,7 @@ Default variables that have been defined in defaults/main.yml
   \# The default disk format to use for the imported OVA's disks.
   ova_deployment_disk_type: thin
 
-The following parameters need to be provided, as extra vars, group_vars or host_vars:
+## The following parameters need to be provided, as extra vars, group_vars or host_vars:
 
   \# Set the OVA deployment variables.
   ova_deployment_hostname: "vcenter/esxi hostname"
@@ -54,7 +54,7 @@ The following parameters need to be provided, as extra vars, group_vars or host_
   ova_deployment_cluster: "vcenter cluster"
   ova_deployment_folder: "vcenter folder"
 
-The following mandatory global variables need to be set:
+## The following mandatory global variables need to be set:
 
   \# The OVA file name.
   ova_file: "ova_file.ova"
@@ -62,12 +62,12 @@ The following mandatory global variables need to be set:
   \# The local path to the OVA file (do not use a leading /).
   ova_path: "/path/to/ova_file"
 
-The following optional global variables can be set:
+## The following optional global variables can be set:
 
   \# The URL to the OVA file if source is set to 'http' (do not use a leading /).
   ova_url: "http[s]://example.com/ovas"
 
-The following mandatory variables need to be set in roles that use this role:
+## The following mandatory variables need to be set in roles that use this role:
 
   \# A key:value for the network property, for example:
   \# ova_networks:
@@ -83,7 +83,7 @@ The following mandatory variables need to be set in roles that use this role:
     "key": "value"
     "key": "value"
 
-The following optional variables can be set in roles that use this role:
+## The following optional variables can be set in roles that use this role:
 
   \# A string containing the deployment option
   ova_deployment_option: "option"
