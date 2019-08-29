@@ -21,6 +21,12 @@
   loop_control:
     loop_var: vro_plugin
 
+# Pause for 1 minute to wait for vro-server auto restart.
+# after plugin upload/install.
+- pause:
+    minutes: 1
+  when: vro_plugins is defined
+
 - include_tasks: wait_for_vro_server.yml
 
 - include_tasks: install_packages.yml

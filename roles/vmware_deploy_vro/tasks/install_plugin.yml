@@ -51,7 +51,3 @@
   changed_when: |
     vro_plugin_finish_response.json.installPluginStates[0].state == "INSTALLED" or
     vro_plugin_finish_response.json.installPluginStates[0].state == "OVERWRITTEN"
-
-# Pause for 1 minute to wait for vro-server auto restart.
-- pause:
-    minutes: 1
