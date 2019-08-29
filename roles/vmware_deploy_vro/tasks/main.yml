@@ -1,20 +1,20 @@
 ---
-#- include_tasks: remove_existing.yml
-#  when: vro_remove_existing|bool
-
 - include_tasks: wait_for_vro_service.yml
 
-# - include_tasks: configure_hostname.yml
+- include_tasks: configure_hostname.yml
 
-# TODO: configure logging
+- include_tasks: configure_logs.yml
+  when: loginsight_server is not defined
+- include_tasks: configure_log_integration.yml
+  when: loginsight_server is defined
 
-# - include_tasks: configure_auth_provider.yml
-#   when: vro_auth_provider is defined
+- include_tasks: configure_auth_provider.yml
+  when: vro_auth_provider is defined
 
 - include_tasks: import_ssl_certificate.yml
-  when: vro_use_selfsigned_certificate|bool == False
+  when: not (vro_use_selfsigned_certificate|bool)
 
-# - include_tasks: configure_ntp.yml
+- include_tasks: configure_ntp.yml
 
 - include_tasks: install_plugin.yml
   loop: "{{ vro_plugins }}"
@@ -31,9 +31,9 @@
     vro_install_packages|bool and
     vro_auth_provider is defined
 
-# - include_tasks: add_plugin_endpoints.yml
-#   vars:
-#     ignore_workflow_errors: "{{ vro_ignore_plugin_errors }}"
-#   when: |
-#     vro_configure_plugin_endpoints|bool and
-#     vro_auth_provider is defined
+- include_tasks: add_plugin_endpoints.yml
+  vars:
+    ignore_workflow_errors: "{{ vro_ignore_plugin_errors }}"
+  when: |
+    vro_configure_plugin_endpoints|bool and
+    vro_auth_provider is defined
