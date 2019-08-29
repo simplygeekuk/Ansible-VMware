@@ -1,7 +1,7 @@
 ---
 - name: "Check if Package: {{ vro_package }} is installed."
   uri:
-    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages/{{ vro_package }}"
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_api_port }}/vco/api/packages/{{ vro_package.split('.')[:-1] | join('.') }}"
     user: "{{ vro_api_username }}"
     password: "{{ vro_api_password }}"
     validate_certs: "{{ http_validate_certs }}"
