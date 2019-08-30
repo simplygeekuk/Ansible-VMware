@@ -1,5 +1,6 @@
 ---
-##
+## Provide the VMware LogInsight server details to send system logs to.
+## Valid protocol options are 'syslog' and 'cfapi'.
 loginsight_server:
   host: "sg1-log001.sgroot.local"
   port: 514
