@@ -38,7 +38,7 @@ vro_force_install_packages: no
 ## Set the source location of where packages can be found.
 ## Available options are 'local'.
 ## For local, the packages should be placed in the 'files' folder in the vmware_deploy_vro role.
-vro_package_source: local
+vro_package_source: "local"
 
 ## Set to enable or disable if plugin endpoints should be configured.
 ## This will have a dependency on an authentication provider being configured
