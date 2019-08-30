@@ -3,13 +3,13 @@
 
 - include_tasks: configure_hostname.yml
 
+- include_tasks: configure_auth_provider.yml
+  when: vro_auth_provider is defined
+
 - include_tasks: configure_logs.yml
   when: loginsight_server is not defined
 - include_tasks: configure_log_integration.yml
   when: loginsight_server is defined
-
-- include_tasks: configure_auth_provider.yml
-  when: vro_auth_provider is defined
 
 - include_tasks: import_ssl_certificate.yml
   when: not (vro_use_selfsigned_certificate|bool)
@@ -21,10 +21,9 @@
   loop_control:
     loop_var: vro_plugin
 
-# Pause for 1 minute to wait for vro-server auto restart.
-# after plugin upload/install.
-- pause:
-    minutes: 1
+- name: Pause for 2 minutes to wait for vro-server auto restart after plugin upload/install.
+  pause:
+    minutes: 2
   when: vro_plugins is defined
 
 - include_tasks: wait_for_vro_server.yml
