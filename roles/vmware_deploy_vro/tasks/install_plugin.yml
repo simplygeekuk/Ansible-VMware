@@ -6,7 +6,7 @@
     -F "file=@{{ role_path }}/files/plugins/{{ vro_plugin }}"
     https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/plugins/installation
   args:
-    warn: false
+    warn: false # noqa 301
   delegate_to: localhost
   register: vro_plugin_upload_response
   no_log: true

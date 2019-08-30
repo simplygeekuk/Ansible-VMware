@@ -32,18 +32,18 @@
   delegate_to: localhost
   register: vro_ssl_import_response
   no_log: true
-  when: | 
+  when: |
     vro_ssl_info.json.sslCertificate.organization == "VMware" and
     check_cert_exists.stat.exists|bool
 
 - name: Set Certificate ID
   set_fact:
-    vro_certificate_id: "{{ (vro_ssl_import_response.stdout | from_json).id }}"
+    vro_certificate_id: "{{ (vro_ssl_import_response.stdout | from_json).id }}" # noqa 503
   when: vro_ssl_import_response.changed|bool
 
 - name: Complete SSL Certificate Import
   uri:
-    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/import/pem/{{ vro_certificate_id }}/finish"
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/ssl/import/pem/{{ vro_certificate_id }}/finish" # noqa 503
     user: "{{ vro_root_username }}"
     password: "{{ vro_root_password }}"
     validate_certs: "{{ http_validate_certs }}"
@@ -60,7 +60,7 @@
 
 - name: Restart Service
   uri:
-    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/server/status/restart"
+    url: "https://{{ inventory_hostname|lower }}:{{ vro_cc_api_port }}/vco-controlcenter/api/server/status/restart" # noqa 503
     user: "{{ vro_root_username }}"
     password: "{{ vro_root_password }}"
     validate_certs: "{{ http_validate_certs }}"

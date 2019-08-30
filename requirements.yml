@@ -2,3 +2,6 @@
 # from galaxy
 - src: nmshadey.vmware_deploy_ova
   name: vmware_deploy_ova
+- src: nmshadey.vmware_deploy_vro
+  name: vmware_deploy_vro
+

@@ -15,7 +15,7 @@ vro_api_username: vro_api_user@sgroot.local
 vro_api_password: VMwar3!!
 
 ## The credentials to use to register vRO with the authentication provider.
-vro_auth_username: administrator@vsphere.local
+vro_auth_username: defaultadmin
 vro_auth_password: VMwar3!!
 
 ## The following credentials are used to configure plugin endpoints.

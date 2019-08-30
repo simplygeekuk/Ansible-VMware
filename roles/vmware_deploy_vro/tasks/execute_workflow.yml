@@ -46,7 +46,7 @@
   delegate_facts: true
 
 - name: Get Workflow Execution ID
-  set_fact: 
+  set_fact:
     workflow_exection_id: "{{ workflow_execute_response.json.id }}"
 
 - name: Check Workflow Status
@@ -75,6 +75,6 @@
   fail:
     msg: "{{ check_workflow_execute_response.json['content-exception'] }}"
   when: |
-    ignore_workflow_errors|bool == false and
+    not (ignore_workflow_errors|bool) and
     check_workflow_execute_response.json.state == "failed" and
     'already registered' not in check_workflow_execute_response.json['content-exception']

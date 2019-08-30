@@ -32,12 +32,12 @@ vro_use_selfsigned_certificate: no
 ## and the API user a member of the adminGroup.
 vro_install_packages: yes
 
-## If a package version is already installed, force the package to be installed.
+## If a package version is already installed, set to 'yes' to force the package to be installed.
 vro_force_install_packages: no
 
 ## Set the source location of where packages can be found.
 ## Available options are 'local'.
-## For local, the packages should be placed in the 'files' folder in the vmware_deploy_vro role.
+## If 'local' is set, then packages should be placed in the 'files/packages' folder in the 'vmware_deploy_vro' role.
 vro_package_source: "local"
 
 ## Set to enable or disable if plugin endpoints should be configured.
@@ -45,7 +45,7 @@ vro_package_source: "local"
 ## and the API user a member of the adminGroup.
 vro_configure_plugin_endpoints: yes
 
-## If a plugin is already installed, force the plugin to be installed.
+## If a plugin is already installed, set to 'yes' to force the plugin to be installed.
 vro_force_plugin_install: no
 
 ## Set if you would like to ignore any errors when adding plugin endpoints.
@@ -53,7 +53,7 @@ vro_force_plugin_install: no
 vro_ignore_plugin_errors: no
 
 ## Default log rotation parameters.
-## Valid log levels are: '','ALL','TRACE','DEBUG','INFO','WARN','ERROR','FATAL','OFF'
+## Valid log levels are: '', 'ALL', 'TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FATAL', 'OFF'.
 vro_logging_globalLevel: "INFO"
 vro_logging_maxFileCount: 10
 vro_logging_maxFileSizeMb: 5

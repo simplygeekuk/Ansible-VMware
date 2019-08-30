@@ -13,6 +13,6 @@
 
 - name: Restart NTP to apply configuration changes
   service:
-    name: ntp
+    name: ntp # noqa 503
     state: restarted
   when: ntp_conf_generated.changed|bool
