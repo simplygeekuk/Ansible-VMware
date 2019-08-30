@@ -33,10 +33,10 @@ These variables can be overridden using extra vars or by copying the variable to
 Default list of NTP Servers that will be used.
 ```
 ntp_servers:
-  \- "0.pool.ntp.org"
-  \- "1.pool.ntp.org"
-  \- "2.pool.ntp.org"
-  \- "3.pool.ntp.org"
+  - "0.pool.ntp.org"
+  - "1.pool.ntp.org"
+  - "2.pool.ntp.org"
+  - "3.pool.ntp.org"
 ```
 
 HTTP REST API Variables.
