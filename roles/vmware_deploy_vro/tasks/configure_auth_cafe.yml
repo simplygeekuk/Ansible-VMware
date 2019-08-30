@@ -40,6 +40,7 @@
   register: auth_pre_validate_response
   delegate_to: localhost
   delegate_facts: true
+  failed_when: auth_pre_validate_response.json.errorMessage == "error.missing.url"
 
 - name: "Complete Authentication Configuration Wizard for provider: {{ vro_auth_provider }}"
   uri:
