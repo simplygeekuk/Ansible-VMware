@@ -1,38 +1,131 @@
-Role Name
+vmware_deploy_vro
 =========
 
-A brief description of the role goes here.
+Deploys the vRealize Orchestrator Appliance from OVA and allows for the following configuration:
+- Hostname (appliance hostname or VIP)
+- SSL Certificate
+- Authentication Provider (vSphere or vRealize Automation)
+- Log Rotation Settings and Log Integration (LogInsight)
+- NTP
+- Install Plugins
+- Import Packages
+- Add Plugin Endpoints (SOAP, REST, vRA, vCenter, PowerShell, vAPI)
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- python >= 2.6
+- PyVmomi
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+### Default variables that have been defined in defaults/main.yml
+
+These variables can be overridden using extra vars or by copying the variable to a host_vars or group_vars file and changing to the desired value.
+
+Default list of NTP Servers that will be used.
+```
+ntp_servers:
+  \- "0.pool.ntp.org"
+  \- "1.pool.ntp.org"
+  \- "2.pool.ntp.org"
+  \- "3.pool.ntp.org"
+```
+
+HTTP REST API Variables.
+```
+http_content_type: "application/json"
+http_Accept: "application/json"
+http_validate_certs: no
+http_body_format: "json"
+```
+
+Set the ports used by the vco and vco-controlcenter APIs.
+```
+vro_api_port: 8281
+vro_cc_api_port: 8283
+```
+
+Enable SSH access to the appliance.
+```
+vro_enable_ssh: "True"
+```
+
+Enable Customer Experience Improvement Program.
+```
+vro_enable_telemetry: "False"
+```
+
+Set to '**yes**' to default to using self-signed certificates otherwise provide the certificate file in PEM format using the host name, as it has been defined in the hosts file (fqdn), with the extension .pem.
+```
+vro_use_selfsigned_certificate: no
+```
+
+Set to enable or disable if packages should be installed. This will have a dependency on an authentication provider being configured and the API user a member of the adminGroup.
+```
+vro_install_packages: yes
+```
+
+If a package version is already installed, set to '**yes**' to force the package to be installed.
+```
+vro_force_install_packages: no
+```
+
+Set the source location of where packages can be found.
+
+Available options are '**local**'.
+
+If **local** is set, then packages should be placed in the '**files/packages**' folder in the '**vmware_deploy_vro**' role.
+```
+vro_package_source: local
+```
+
+Set to enable or disable if plugin endpoints should be configured. This will have a dependency on an authentication provider being configuredand the API user a member of the adminGroup.
+```
+vro_configure_plugin_endpoints: yes
+```
+
+If a plugin is already installed, set to '**yes**' to force the plugin to be installed.
+```
+vro_force_plugin_install: no
+```
+
+Set if you would like to ignore any errors when adding plugin endpoints. This can be useful if re-running the playbook fails due to duplicate endpoints.
+```
+vro_ignore_plugin_errors: no
+```
+
+Default log rotation parameters.
+
+Valid log levels are: '', '**ALL**', '**TRACE**', '**DEBUG**', '**INFO**', '**WARN**', '**ERROR**', '**FATAL**', '**OFF**'
+```
+vro_logging_globalLevel: "INFO"
+vro_logging_maxFileCount: 10
+vro_logging_maxFileSizeMb: 5
+vro_logging_scriptingLevel: "INFO"
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+  - src: nmshadey.vmware_deploy_ova
+    name: vmware_deploy_ova
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
+    - hosts: vro_appliances
+      become: no
       roles:
-         - { role: username.rolename, x: 42 }
+        - vmware_deploy_vro
 
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Gavin Stephens (www.simplygeek.co.uk)
