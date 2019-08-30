@@ -11,6 +11,12 @@ Deploys the vRealize Orchestrator Appliance from OVA and allows for the followin
 - Import Packages
 - Add Plugin Endpoints (SOAP, REST, vRA, vCenter, PowerShell, vAPI)
 
+Supported vRealize Orchestrator Appliances
+------------
+
+- vRealize Orchestrator 7.5
+- vRealize Orchestrator 7.6
+
 Requirements
 ------------
 
