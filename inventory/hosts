@@ -10,6 +10,7 @@ all:
       hosts:
         sg1-vro003.sgroot.local:
         sg1-vro004.sgroot.local:
+        sg1-vsa005.sgroot.local:
     dc_management:
       hosts:
         sg1-vro003.sgroot.local:
