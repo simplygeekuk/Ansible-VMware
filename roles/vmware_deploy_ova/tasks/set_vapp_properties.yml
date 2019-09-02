@@ -11,3 +11,4 @@
     name: "{{ inventory_hostname_short | upper }}"
     vapp_properties: "{{ vapp_properties }}"
   delegate_to: localhost
+  when: vapp_properties is defined
