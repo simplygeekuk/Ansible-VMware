@@ -1,0 +1,7 @@
+---
+## The vCenter Server details for the management data center.
+management_vcenter_hostname: "sg1-vsa001.sgroot.local"
+management_vcenter_username: administrator@vsphere.local
+management_vcenter_password: VMwar3!!
+management_vcenter_datacenter: SG1
+management_vcenter_cluster: SG1-CLS-MGMT-01
