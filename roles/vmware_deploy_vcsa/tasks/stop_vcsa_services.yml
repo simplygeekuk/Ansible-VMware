@@ -1,0 +1,8 @@
+---
+- name: Start VCSA Services
+  include_tasks: service_manager.yml
+  vars:
+    action: "stop"
+  loop: "{{ vcsa_services_to_stop }}"
+  loop_control:
+    loop_var: vcsa_service_name
