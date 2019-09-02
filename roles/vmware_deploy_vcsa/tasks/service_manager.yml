@@ -1,0 +1,71 @@
+---
+- name: "Get service status for {{ vcsa_service_name }}"
+  uri:
+    url: "https://{{ inventory_hostname | lower }}/rest/appliance/vmon/service/{{ vcsa_service_name }}"
+    validate_certs: "{{ http_validate_certs }}"
+    method: GET
+    headers:
+      Accept: "{{ http_accept }}"
+      vmware-api-session-id: "{{ vcsa_api_session_key }}"
+    status_code: [200]
+  register: vcsa_service_info
+  until: "(vcsa_service_info | success) and (vcsa_service_info.status == 200)"
+  retries: 10
+  delay: 30
+  delegate_to: localhost
+
+- name: "Changing status of {{ vcsa_service_name }} to {{ action }}"
+  uri:
+    url: "https://{{ inventory_hostname | lower }}/rest/appliance/vmon/service/{{ vcsa_service_name }}/{{ action }}"
+    validate_certs: "{{ http_validate_certs }}"
+    method: POST
+    headers:
+      Accept: "{{ http_accept }}"
+      vmware-api-session-id: "{{ vcsa_api_session_key }}"
+    status_code: [200]
+  register: vcsa_service_action
+  delegate_to: localhost
+  when: |
+    (vcsa_service_info.json.value.state == "STARTED" and action|lower == "stop") or
+    (vcsa_service_info.json.value.state == "STOPPED" and action|lower == "start")
+  changed_when: vcsa_service_action.status == 200
+
+- name: "Changing startup-type for {{ vcsa_service_name }} to MANUAL"
+  uri:
+    url: "https://{{ inventory_hostname | lower }}/rest/appliance/vmon/service/{{ vcsa_service_name }}"
+    validate_certs: "{{ http_validate_certs }}"
+    method: PATCH
+    headers:
+      Accept: "{{ http_accept }}"
+      vmware-api-session-id: "{{ vcsa_api_session_key }}"
+    body_format: "{{ http_body_format }}"
+    body:
+      spec:
+        startup_type: "MANUAL"
+    status_code: [200]
+  register: vcsa_service_startup_manual
+  delegate_to: localhost
+  when: |
+    action|lower == "stop" and
+    vcsa_service_info.json.value.startup_type == "AUTOMATIC"
+  changed_when: vcsa_service_startup_manual.status == 200
+
+- name: "Changing startup-type for {{ vcsa_service_name }} to AUTOMATIC"
+  uri:
+    url: "https://{{ inventory_hostname | lower }}/rest/appliance/vmon/service/{{ vcsa_service_name }}"
+    validate_certs: "{{ http_validate_certs }}"
+    method: PATCH
+    headers:
+      Accept: "{{ http_accept }}"
+      vmware-api-session-id: "{{ vcsa_api_session_key }}"
+    body_format: "{{ http_body_format }}"
+    body:
+      spec:
+        startup_type: "AUTOMATIC"
+    status_code: [200]
+  register: vcsa_service_startup_auto
+  delegate_to: localhost
+  when: |
+    action|lower == "start" and
+    vcsa_service_info.json.value.startup_type == "MANUAL"
+  changed_when: vcsa_service_startup_auto.status == 200
