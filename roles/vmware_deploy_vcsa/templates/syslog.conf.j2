@@ -10,7 +10,7 @@
   {%- else -%}
     {%- set syslog_string = syslog_string ~ ':omrelp:' -%}
   {%- endif -%}
-  {%- set syslog_string = syslog_string ~ syslog["server"] ~ ':' ~ syslog["port"] ~ ';RSYSLOG_SyslogProtocol23Format' -%}
+  {%- set syslog_string = syslog_string ~ syslog["host"] ~ ':' ~ syslog["port"] ~ ';RSYSLOG_SyslogProtocol23Format' -%}
   {{ syslog_lines.append(syslog_string) }}
 {%- endfor -%}
 {{ syslog_lines | join('\n') }}
