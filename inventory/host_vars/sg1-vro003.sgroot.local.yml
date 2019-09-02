@@ -9,13 +9,12 @@ ova_network_gateway: "10.1.10.254"
 # vro_vip_hostname: vro.example.com
 
 ## Set the OVA deployment variables.
-ova_deployment_hostname: "{{ vcenter_hostname }}"
-ova_deployment_username: "{{ vcenter_username }}"
-ova_deployment_password: "{{ vcenter_password }}"
-ova_deployment_datacenter: "{{ vcenter_datacenter }}"
-ova_deployment_cluster: "{{ vcenter_cluster }}"
-ova_deployment_datastore: "{{ vcenter_datastore }}"
-# ova_deployment_folder: "{{ vcenter_folder }}"
+ova_deployment_hostname: "{{ management_vcenter_hostname }}"
+ova_deployment_username: "{{ management_vcenter_username }}"
+ova_deployment_password: "{{ management_vcenter_password }}"
+ova_deployment_datacenter: "{{ management_vcenter_datacenter }}"
+ova_deployment_cluster: "{{ management_vcenter_cluster }}"
+ova_deployment_datastore: "vsanDatastore"
 
 ## Set the root password for this appliance, or leave commented out to use the default.
 # vro_root_password: "VMwar3!!"
