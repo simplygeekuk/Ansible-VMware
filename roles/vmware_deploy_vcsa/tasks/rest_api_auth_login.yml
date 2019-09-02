@@ -1,1 +1,22 @@
 ---
+- name: Get API Session Key
+  uri:
+    url: "https://{{ inventory_hostname | lower }}/rest/com/vmware/cis/session"
+    user: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ http_validate_certs }}"
+    force_basic_auth: yes
+    method: POST
+    headers:
+      Accept: "{{ http_accept }}"
+    status_code: [200, 400]
+  register: vcsa_auth_response
+  delegate_to: localhost
+  delegate_facts: true
+  until: vcsa_auth_response.status == 200
+  retries: 100
+  delay: 10
+
+- name: Set API Session Key
+  set_fact:
+    vcsa_api_session_key: "{{ vcsa_auth_response.json.value }}"
