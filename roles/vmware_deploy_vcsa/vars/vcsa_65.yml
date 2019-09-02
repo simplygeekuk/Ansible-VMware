@@ -1,1 +1,73 @@
 ---
+---
+## Set the OVA Appliance Network.
+ova_networks:
+  "Network 1": "{{ network_label }}"
+
+## Set the OVA Appliance Properties.
+ova_properties:
+  guestinfo.cis.appliance.net.addr.family: "ipv4"
+  guestinfo.cis.appliance.net.mode: "static"
+  guestinfo.cis.appliance.net.addr: "{{ network_ip_address }}"
+  guestinfo.cis.appliance.net.pnid: "{{ inventory_hostname|lower }}"
+  guestinfo.cis.appliance.net.prefix: "{{ network_prefix }}"
+  guestinfo.cis.appliance.net.gateway: "{{ network_gateway }}"
+  guestinfo.cis.appliance.net.dns.servers: "{{ dns_servers | join(',') }}"
+  guestinfo.cis.appliance.root.passwd: "{{ vcsa_admin_password }}"
+  guestinfo.cis.vmdir.password: "{{ vcsa_sso_password }}"
+
+## Set the vApp environment properties.
+## the inject_ovf_env setting for vmware_deploy_ovf appears to only support vcsa 6.7.
+vapp_properties:
+  - id: guestinfo.cis.deployment.node.type
+    type: string
+    value: "embedded"
+    userConfigurable: true
+  - id: guestinfo.cis.appliance.ssh.enabled
+    type: boolean
+    value: "True"
+    userConfigurable: true
+  - id: guestinfo.cis.vmdir.site-name
+    type: string
+    value: "Default-First-Site"
+    userConfigurable: true
+  - id: guestinfo.cis.vmdir.domain-name
+    type: string
+    value: "vsphere.local"
+    userConfigurable: true
+  - id: guestinfo.cis.vmdir.first-instance
+    type: boolean
+    value: "True"
+    userConfigurable: true
+  - id: guestinfo.cis.appliance.ntp.servers
+    type: string
+    value: "{{ ntp_servers | join(',') }}"
+    userConfigurable: true
+  - id: guestinfo.cis.appliance.time.tools-sync
+    type: boolean
+    value: "False"
+    userConfigurable: true
+  - id: guestinfo.cis.vpxd.mac-allocation-scheme.ranges
+    type: string
+    value: "{{ network_mac_allocation_range }}"
+    userConfigurable: true
+  - id: guestinfo.cis.deployment.autoconfig
+    type: boolean
+    value: "True"
+    userConfigurable: true
+  - id: guestinfo.cis.ceip_enabled
+    type: boolean
+    value: "False"
+    userConfigurable: true
+  - id: guestinfo.cis.appliance.root.shell
+    type: string
+    value: "/bin/bash"
+    userConfigurable: true
+  - id: domain
+    type: string
+    value: "{{ dns_domain }}"
+    userConfigurable: true
+  - id: searchpath
+    type: string
+    value: "{{ dns_domain }}"
+    userConfigurable: true
