@@ -1,0 +1,13 @@
+---
+## These are the default admin credentials that will be configured for all VCSA appliances.
+## These can be overridden by setting vcsa_admin_username and vcsa_admin_password per
+## host in host_vars.
+vcsa_admin_username: root
+vcsa_admin_password: "VMwar3!!"
+
+## These are the default sso credentials that will be configured for all VCSA appliances.
+## These can be overridden by setting vcsa_sso_username and vcsa_sso_password per
+## host in host_vars.
+
+vcsa_sso_username: administrator@vsphere.local
+vcsa_sso_password: "VMwar3!!"

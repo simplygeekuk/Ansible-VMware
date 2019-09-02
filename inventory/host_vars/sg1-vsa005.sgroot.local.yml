@@ -1,0 +1,36 @@
+---
+## Set the vCenter Server Product version and build if this cannot be determined
+## by the provided OVF file name.
+# vcsa_version: "6.5.0"
+# vcsa_build: "9451637"
+
+## Set Network Configuration for the appliance.
+network_label: "Management"
+network_ip_address: "10.1.10.95"
+network_prefix: "24"
+network_gateway: "10.1.10.254"
+
+## Set the OVA deployment variables.
+ova_deployment_hostname: "{{ management_vcenter_hostname }}"
+ova_deployment_username: "{{ management_vcenter_username }}"
+ova_deployment_password: "{{ management_vcenter_password }}"
+ova_deployment_datacenter: "{{ management_vcenter_datacenter }}"
+ova_deployment_cluster: "{{ management_vcenter_cluster }}"
+ova_deployment_datastore: "vsanDatastore"
+# ova_deployment_folder: "SG1/vm"
+
+## Set the admin username to use when configurating the appliance, or leave commented out to use the default.
+# vcsa_admin_username: ""
+
+## Set the admin password for specified vcsa_admin_username, or leave commented out to use the default.
+# vcsa_admin_password: ""
+
+## Set the sso username, or leave commented out to use the default.
+# vcsa_sso_username: ""
+
+## Set the sso password, or leave commented out to use the default.
+# vcsa_sso_password: ""
+
+ansible_user: "{{ vcsa_admin_username }}"
+ansible_password: "{{ vcsa_admin_password }}"
+ansible_host: "{{ network_ip_address }}"

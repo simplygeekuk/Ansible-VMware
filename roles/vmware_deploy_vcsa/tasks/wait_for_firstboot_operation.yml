@@ -15,7 +15,17 @@
   set_fact:
     firstboot_file_content: "{{ firstboot_file.content | b64decode }}"
 
+- name: Get error message if operation has failed
+  shell: "tail /var/log/firstboot/*firstboot*stderr.log -n 20"
+  register: vcsa_error_log
+  changed_when: false
+  when: firstboot_file_content.finalStatus == "failure"
+
 - name: Check if firstboot operation failed
   fail:
-    msg: "Failed at {{ firstboot_file_content.failedSteps }}"
+    msg: |
+      "vCenter Server deployment failed at {{ firstboot_file_content.failedSteps }}"
+      "Error was:"
+
+      "{{ vcsa_error_log.stdout }}"
   when: firstboot_file_content.finalStatus == "failure"

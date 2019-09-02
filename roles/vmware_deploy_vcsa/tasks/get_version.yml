@@ -1,0 +1,14 @@
+---
+- name: Get vCenter Server Version from OVA file name
+  set_fact:
+    vcsa_version: "{{ ova_file | regex_search(query) }}"
+  vars:
+    query: '(?<=[a-zA-Z]-)[0-9]{1}\.[0-9]{1}\.[0-9]{1}'
+  when: vcsa_version is not defined
+
+- name: Get vCenter Server Build from OVA file name
+  set_fact:
+    vcsa_build: "{{ ova_file | regex_search(query) }}"
+  vars:
+    query: '(?<=[a-zA-Z]-[0-9]{1}\.[0-9]{1}\.[0-9]{1}\.\d{5}-)\d{7,9}'
+  when: vcsa_build is not defined

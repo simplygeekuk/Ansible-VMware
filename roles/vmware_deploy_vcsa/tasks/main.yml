@@ -1,2 +1,5 @@
 ---
-# tasks file for roles/vmware_deploy_vcsa
+# - include_tasks: get_version.yml
+- include_tasks: wait_for_ssh.yml
+- include_tasks: wait_for_firstboot_operation.yml
+- include_tasks: configure_syslog.yml
