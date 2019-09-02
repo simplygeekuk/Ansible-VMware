@@ -1,0 +1,4 @@
+---
+## Provide the path and file name for the VCSA OVA.
+ova_path: "/mnt/iso/VMware/vCenter/6.5"
+ova_file: "VMware-vCenter-Server-Appliance-6.5.0.22000-9451637_OVF10.ova"
