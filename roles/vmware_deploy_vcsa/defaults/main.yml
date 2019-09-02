@@ -1,2 +1,13 @@
 ---
-# defaults file for roles/vmware_deploy_vcsa
+## Default list of NTP Servers that will be used.
+ntp_servers:
+  - "0.pool.ntp.org"
+  - "1.pool.ntp.org"
+  - "2.pool.ntp.org"
+  - "3.pool.ntp.org"
+
+# HTTP REST API Variables
+http_content_type: "application/json"
+http_accept: "application/json"
+http_validate_certs: no
+http_body_format: "json"

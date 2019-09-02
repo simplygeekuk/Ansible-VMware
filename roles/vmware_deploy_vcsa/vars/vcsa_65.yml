@@ -1,5 +1,4 @@
 ---
----
 ## Set the OVA Appliance Network.
 ova_networks:
   "Network 1": "{{ network_label }}"
@@ -9,7 +8,7 @@ ova_properties:
   guestinfo.cis.appliance.net.addr.family: "ipv4"
   guestinfo.cis.appliance.net.mode: "static"
   guestinfo.cis.appliance.net.addr: "{{ network_ip_address }}"
-  guestinfo.cis.appliance.net.pnid: "{{ inventory_hostname|lower }}"
+  guestinfo.cis.appliance.net.pnid: "{{ inventory_hostname | lower }}"
   guestinfo.cis.appliance.net.prefix: "{{ network_prefix }}"
   guestinfo.cis.appliance.net.gateway: "{{ network_gateway }}"
   guestinfo.cis.appliance.net.dns.servers: "{{ dns_servers | join(',') }}"
@@ -47,10 +46,10 @@ vapp_properties:
     type: boolean
     value: "False"
     userConfigurable: true
-  - id: guestinfo.cis.vpxd.mac-allocation-scheme.ranges
-    type: string
-    value: "{{ network_mac_allocation_range }}"
-    userConfigurable: true
+  # - id: guestinfo.cis.vpxd.mac-allocation-scheme.ranges
+  #   type: string
+  #   value: "{{ network_mac_allocation_range }}"
+  #   userConfigurable: true
   - id: guestinfo.cis.deployment.autoconfig
     type: boolean
     value: "True"
