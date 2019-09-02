@@ -1,0 +1,21 @@
+---
+- name: Wait for firstboot operation to complete
+  wait_for:
+    path: "/var/log/firstboot/firstbootStatus.json"
+    search_regex: '"finalStatus": "(failure|success)"'
+    sleep: 10
+    timeout: 900
+
+- name: Read firstboot.json file
+  slurp:
+    src: "/var/log/firstboot/firstbootStatus.json"
+  register: firstboot_file
+
+- name: Set firstboot.json content
+  set_fact:
+    firstboot_file_content: "{{ firstboot_file.content | b64decode }}"
+
+- name: Check if firstboot operation failed
+  fail:
+    msg: "Failed at {{ firstboot_file_content.failedSteps }}"
+  when: firstboot_file_content.finalStatus == "failure"
