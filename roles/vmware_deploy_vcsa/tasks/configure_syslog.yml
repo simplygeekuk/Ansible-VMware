@@ -1,1 +1,22 @@
 ---
+- name: Add syslog servers
+  template:
+    src: syslog.conf.j2
+    dest: /etc/vmware-syslog/syslog.conf
+  register: syslog_configured
+
+- name: Enable syslog
+  replace:
+    path: /etc/vmware-vpx/vpxd.cfg
+    regexp: '<outputToSyslog>false'
+    replace: '<outputToSyslog>true'
+    backup: yes
+  register: syslog_enabled
+
+- name: Restart service rsyslog
+  service:
+    name: rsyslog
+    state: restarted
+  when: |
+    syslog_configured.changed|bool or
+    syslog_enabled.changed|bool
