@@ -1,0 +1,12 @@
+---
+- name: Delete API Session Key
+  uri:
+    url: "https://{{ inventory_hostname | lower }}/rest/com/vmware/cis/session"
+    validate_certs: "{{ http_validate_certs }}"
+    method: DELETE
+    headers:
+      Accept: "{{ http_accept }}"
+      vmware-api-session-id: "{{ vcsa_api_session_key }}"
+    status_code: [200]
+  register: vcsa_auth_logout_response
+  delegate_to: localhost

@@ -12,7 +12,6 @@
     status_code: [200, 400]
   register: vcsa_auth_response
   delegate_to: localhost
-  delegate_facts: true
   until: vcsa_auth_response.status == 200
   retries: 100
   delay: 10

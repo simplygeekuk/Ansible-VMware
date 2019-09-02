@@ -2,9 +2,16 @@
 # - include_tasks: get_version.yml
 - include_tasks: wait_for_ssh.yml
 - include_tasks: wait_for_firstboot_operation.yml
+
 - include_tasks: configure_syslog.yml
+
 - include_tasks: rest_api_auth_login.yml
-# - include_tasks: start_vcsa_services.yml
-# - include_tasks: stop_vcsa_services.yml
-# - include_tasks: rest_api_auth_logout.yml
+
+- include_tasks: start_vcsa_services.yml
+  when: vcsa_services_to_start is defined
+
+- include_tasks: stop_vcsa_services.yml
+  when: vcsa_services_to_stop is defined
+
+- include_tasks: rest_api_auth_logout.yml
 # - include_tasks: join_appliance_to_domain.yml
