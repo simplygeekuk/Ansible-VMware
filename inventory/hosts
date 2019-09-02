@@ -1,31 +1,42 @@
-sg1-vro003.sgroot.local
-sg1-vro004.sgroot.local
-
-[local]
-localhost   ansible_python_interpreter=~/python-env/ansible_vmware/bin/python
-
-[site_a]
-sg1-vro003.sgroot.local
-sg1-vro004.sgroot.local
-
-[windows]
-win-server-01
-win-server-02
-win-server-03
-
-[linux]
-lin-server-01
-lin-server-02
-lin-server-03
-lin-server-04
-lin-server-05
-
-[vro_75_appliances]
-sg1-vro003.sgroot.local
-
-[vro_76_appliances]
-sg1-vro004.sgroot.local
-
-[vro_appliances:children]
-vro_75_appliances
-vro_76_appliances
+all:
+  children:
+    local:
+      hosts:
+        localhost
+      vars:
+        ansible_connection: local
+        ansible_python_interpreter: ~/python-env/ansible_vmware/bin/python
+    site_a:
+      hosts:
+        sg1-vro003.sgroot.local:
+        sg1-vro004.sgroot.local:
+    dc_management:
+      hosts:
+        sg1-vro003.sgroot.local:
+        sg1-vro004.sgroot.local:
+        sg1-vsa005.sgroot.local:
+    vcsa_appliances:
+      children:
+        vcsa_65_appliances:
+          hosts:
+            sg1-vsa005.sgroot.local:
+        vcsa_67_appliances:
+          hosts:
+    vro_appliances:
+      children:
+        vro_75_appliances:
+          hosts:
+            sg1-vro003.sgroot.local:
+        vro_76_appliances:
+          hosts:
+            sg1-vro004.sgroot.local:
+    windows:
+      hosts:
+        win-server-01:
+        win-server-02:
+        win-server-03:
+    linux:
+      hosts:
+        lin-server-01:
+        lin-server-02:
+        lin-server-03:
