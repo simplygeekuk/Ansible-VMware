@@ -1,0 +1,16 @@
+{%- set syslog_lines = [] -%}
+{%- for syslog in syslog_servers -%}
+  {%- set syslog_string = '*.* ' -%}
+  {%- if syslog["protocol"]|lower == "udp" -%}
+    {%- set syslog_string = syslog_string ~ '@' -%}
+  {%- elif syslog["protocol"]|lower == "tcp" -%}
+    {%- set syslog_string = syslog_string ~ '@@' -%}
+  {%- elif syslog["protocol"]|lower == "tls" -%}
+    {%- set syslog_string = syslog_string ~ '@@(o)' -%}
+  {%- else -%}
+    {%- set syslog_string = syslog_string ~ ':omrelp:' -%}
+  {%- endif -%}
+  {%- set syslog_string = syslog_string ~ syslog["server"] ~ ':' ~ syslog["port"] ~ ';RSYSLOG_SyslogProtocol23Format' -%}
+  {{ syslog_lines.append(syslog_string) }}
+{%- endfor -%}
+{{ syslog_lines | join('\n') }}
