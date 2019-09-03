@@ -1,0 +1,35 @@
+---
+- name: Update krb5.conf file
+  lineinfile:
+    path: /etc/krb5.conf
+    create: yes
+    regexp: '^\[libdefaults\]$'
+    line: "[libdefaults]"
+
+- name: Update rdns in krb5.conf file
+  lineinfile:
+    path: /etc/krb5.conf
+    regexp: '^\srdns\s=\s(false|true)$'
+    insertafter: '^\[libdefaults\]$'
+    line: " rdns = false"
+
+- name: Join appliance to the domain
+  command: "/opt/likewise/bin/domainjoin-cli join --ou {{ ad_dom_join_ou }} {{ ad_dom_join_domain }} {{ ad_dom_join_username }} '{{ ad_dom_join_password }}'"
+  register: ad_join_command
+  when: not (stat_krb5_file.stat.exists|bool)
+
+- name: Reboot appliance
+  vmware_guest:
+    hostname: "{{ ova_deployment_hostname }}"
+    username: "{{ ova_deployment_username }}"
+    password: "{{ ova_deployment_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    name: "{{ inventory_hostname_short | lower }}"
+    state: rebootguest
+  register: vcsa_reboot
+  delegate_to: localhost
+  when: ad_join_command.changed|bool
+
+- name: Wait for VCSA to start
+  include_tasks: wait_for_ssh.yml
+  when: vcsa_reboot.changed|bool
