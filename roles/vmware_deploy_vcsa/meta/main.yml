@@ -24,4 +24,4 @@ galaxy_info:
     - vrealize
 
 dependencies:
-  - role: vmware_deploy_ova
+  - { role: vmware_deploy_ova, tags: [ 'deploy' ] }
