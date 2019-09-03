@@ -11,5 +11,5 @@ host *
  ControlPersist 60s
  UserKnownHostsFile /dev/null
  StrictHostKeyChecking no
- IdentityFile ~/.ssh/ansible-key-id-rsa
- IdentityFile ~/.ssh/id_rsa
+ #IdentityFile ~/.ssh/ansible-key-id-rsa
+ #IdentityFile ~/.ssh/id_rsa

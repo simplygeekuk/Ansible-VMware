@@ -9,9 +9,6 @@
       vmware-api-session-id: "{{ vcsa_api_session_key }}"
     status_code: [200]
   register: vcsa_service_info
-  until: "(vcsa_service_info | success) and (vcsa_service_info.status == 200)"
-  retries: 10
-  delay: 30
   delegate_to: localhost
 
 - name: "Changing status of {{ vcsa_service_name }} to {{ action }}"
