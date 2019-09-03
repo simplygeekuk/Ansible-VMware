@@ -58,3 +58,8 @@ vcsa_services_to_stop:
 ## This setting will be ignored if 'disable_root_expiration'
 ## is set to 'yes'.
 # vcsa_root_expiration_days: "180"
+
+# Active Directory Join Domain Account
+ad_dom_join_domain: "{{ dns_domain }}"
+ad_dom_join_username: "svc_dom_join@sgroot.local"
+ad_dom_join_password: "VMwar3!!"

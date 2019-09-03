@@ -13,23 +13,32 @@
     insertafter: '^\[libdefaults\]$'
     line: " rdns = false"
 
+- name: Check if appliance is already joined to the domain
+  shell: "/opt/likewise/bin/domainjoin-cli query"
+  register: ad_query
+
+- name: Set Likewise OU parameter if defined
+  set_fact:
+    likewise_ou_param: "--ou {{ ad_dom_join_ou }}"
+  when: ad_dom_join_ou is defined
+
 - name: Join appliance to the domain
-  command: "/opt/likewise/bin/domainjoin-cli join --ou {{ ad_dom_join_ou }} {{ ad_dom_join_domain }} {{ ad_dom_join_username }} '{{ ad_dom_join_password }}'"
-  register: ad_join_command
-  when: not (stat_krb5_file.stat.exists|bool)
+  shell: "/opt/likewise/bin/domainjoin-cli join {{ likewise_ou_param | default('') }} {{ ad_dom_join_domain }} {{ ad_dom_join_username }} {{ ad_dom_join_password | quote }}"
+  register: ad_join
+  when: not (ad_query.stdout is search('Domain = ' + ad_dom_join_domain|upper))
 
-- name: Reboot appliance
-  vmware_guest:
-    hostname: "{{ ova_deployment_hostname }}"
-    username: "{{ ova_deployment_username }}"
-    password: "{{ ova_deployment_password }}"
-    validate_certs: "{{ ova_validate_certs }}"
-    name: "{{ inventory_hostname_short | lower }}"
-    state: rebootguest
-  register: vcsa_reboot
-  delegate_to: localhost
-  when: ad_join_command.changed|bool
+# - name: Reboot appliance
+#   vmware_guest:
+#     hostname: "{{ ova_deployment_hostname }}"
+#     username: "{{ ova_deployment_username }}"
+#     password: "{{ ova_deployment_password }}"
+#     validate_certs: "{{ ova_validate_certs }}"
+#     name: "{{ inventory_hostname_short | lower }}"
+#     state: rebootguest
+#   register: vcsa_reboot
+#   delegate_to: localhost
+#   when: ad_join.changed|bool
 
-- name: Wait for VCSA to start
-  include_tasks: wait_for_ssh.yml
-  when: vcsa_reboot.changed|bool
+# - name: Wait for VCSA to start
+#   include_tasks: wait_for_ssh.yml
+#   when: vcsa_reboot.changed|bool
