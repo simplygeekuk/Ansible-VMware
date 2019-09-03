@@ -1,0 +1,16 @@
+---
+- name: Set root account to never expire
+  chage: 
+    user: root
+    sp_max: "-1"
+  when: |
+    vcsa_root_expiration_disable is defined and
+    vcsa_root_expiration_disable|bool
+
+- name: Set root account to expire in specified number of days
+  chage: 
+    user: root
+    sp_max: "{{ vcsa_root_expiration_days }}"
+  when: |
+    (vcsa_root_expiration_disable is not defined or not (vcsa_root_expiration_disable|bool)) and
+    vcsa_root_expiration_days is defined

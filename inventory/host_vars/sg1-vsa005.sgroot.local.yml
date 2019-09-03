@@ -34,3 +34,27 @@ ova_deployment_datastore: "vsanDatastore"
 ansible_user: "{{ vcsa_admin_username }}"
 ansible_password: "{{ vcsa_admin_password }}"
 ansible_host: "{{ network_ip_address }}"
+
+
+## Ensure that the following services are started on the appliance
+## and set to AUTOMATIC startup.
+## A list of services can be found using 'service-control --list'.
+vcsa_services_to_start:
+ - updatemgr
+ - vsphere-ui
+ - content-library
+ - vapi-endpoint
+
+## Ensure that the following services are stopped on the appliance
+## and set to MANUAL startup.
+vcsa_services_to_stop:
+ - rbd
+ - imagebuilder
+
+## Set this to yes to prevent the VCSA root account from expiring.
+# vcsa_root_expiration_disable: yes
+
+## Set the number of days until the VCSA root account expires.
+## This setting will be ignored if 'disable_root_expiration'
+## is set to 'yes'.
+# vcsa_root_expiration_days: "180"

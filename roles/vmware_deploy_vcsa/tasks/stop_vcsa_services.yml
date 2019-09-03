@@ -1,5 +1,5 @@
 ---
-- name: Start VCSA Services
+- name: Stop VCSA Services
   include_tasks: service_manager.yml
   vars:
     action: "stop"
