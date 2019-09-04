@@ -64,9 +64,10 @@ vcsa_services_to_stop:
 vcsa_join_to_domain: yes
 
 # Active Directory Join Domain Account
-ad_dom_join_domain: "{{ dns_domain }}"
-ad_dom_join_username: "svc_dom_join@sgroot.local"
-ad_dom_join_password: "VMwar3!!"
+vcsa_ad_dom_join_domain: "{{ dns_domain }}"
+vcsa_ad_dom_join_username: "svc_dom_join@sgroot.local"
+vcsa_ad_dom_join_password: "VMwar3!!"
+# vcsa_ad_dom_join_ou: ""
 
 ##
 vcsa_datacenters:
@@ -77,4 +78,8 @@ vcsa_clusters:
    datacenter: SG2
 
 ##
-vcsa_admin_group: "vSphere-Admins"
+vcsa_vcenter_admin_groups:
+ - "vSphere-Admins"
+
+vcsa_vcenter_readonly_groups:
+ - "vSphere-ReadOnly"
