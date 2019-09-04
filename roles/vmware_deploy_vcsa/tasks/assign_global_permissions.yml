@@ -20,7 +20,7 @@
   set_fact:
     vmware_session_nonce: "{{ vcsa_mob_response.content | regex_search(query) }}"
   vars:
-    query: '(?<=name="vmware-session-nonce" type="hidden" value=")[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(?=")'
+    query: '(?<=name="vmware-session-nonce" type="hidden" value=\")[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}(?=\")'
 
 - name: Set Global Permissions
   uri:
@@ -32,7 +32,7 @@
     body_format: form-urlencoded
     body:
       vmware-session-nonce: "{{ vmware_session_nonce }}"
-      permissions: "{{ lookup('template' , 'global_prmissions.j2') }}"
+      permissions: "{{ lookup('template' , 'global_permissions.j2') }}"
     status_code: [200]
   delegate_to: localhost
   delegate_facts: yes
