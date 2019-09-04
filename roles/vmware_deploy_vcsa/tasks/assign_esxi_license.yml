@@ -1,0 +1,12 @@
+---
+- name: Add and Assign ESXi license
+  vcenter_license:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ vcsa_validate_certs }}"
+    esxi_hostname: '{{ esxi_host }}'
+    license: "{{ vcsa_esxi_license }}"
+    label: "ESXi"
+    state: present
+  delegate_to: localhost

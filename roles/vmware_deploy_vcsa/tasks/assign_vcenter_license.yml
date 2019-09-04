@@ -1,0 +1,11 @@
+---
+- name: Add and Assign vCenter license
+  vcenter_license:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ vcsa_validate_certs }}"
+    license: "{{ vcsa_license }}"
+    label: "vCenter Server"
+    state: present
+  delegate_to: localhost
