@@ -83,3 +83,6 @@ vcsa_vcenter_admin_groups:
 
 vcsa_vcenter_readonly_groups:
   - "vSphere-ReadOnly"
+
+vcsa_global_admin_groups:
+  - "vSphere-Gloabl-Admins"

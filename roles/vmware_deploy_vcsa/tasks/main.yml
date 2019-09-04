@@ -29,25 +29,33 @@
 
 # - include_tasks: rest_api_auth_logout.yml
 
-- include_tasks: assign_vcenter_permissions.yml
-  vars:
-    vcsa_role: "Admin"
-  loop: "{{ vcsa_vcenter_admin_groups }}"
-  loop_control:
-    loop_var: vcsa_group
-  when: |
-    (vcsa_join_to_domain is defined and vcsa_join_to_domain|bool) and
-    vcsa_vcenter_admin_groups is defined
+# - include_tasks: assign_vcenter_permissions.yml
+#   vars:
+#     vcsa_role: "Admin"
+#   loop: "{{ vcsa_vcenter_admin_groups }}"
+#   loop_control:
+#     loop_var: vcsa_group
+#   when: |
+#     (vcsa_join_to_domain is defined and vcsa_join_to_domain|bool) and
+#     vcsa_vcenter_admin_groups is defined
 
-- include_tasks: assign_vcenter_permissions.yml
-  vars:
-    vcsa_role: "ReadOnly"
-  loop: "{{ vcsa_vcenter_readonly_groups }}"
+# - include_tasks: assign_vcenter_permissions.yml
+#   vars:
+#     vcsa_role: "ReadOnly"
+#   loop: "{{ vcsa_vcenter_readonly_groups }}"
+#   loop_control:
+#     loop_var: vcsa_group
+#   when: |
+#     (vcsa_join_to_domain is defined and vcsa_join_to_domain|bool) and
+#     vcsa_vcenter_readonly_groups is defined
+
+- include_tasks: assign_global_permissions.yml
+  loop: "{{ vcsa_global_admin_groups }}"
   loop_control:
-    loop_var: vcsa_group
+    loop_var: vcsa_global_admin_group
   when: |
     (vcsa_join_to_domain is defined and vcsa_join_to_domain|bool) and
-    vcsa_vcenter_readonly_groups is defined
+    vcsa_global_admin_groups is defined
 
 # - include_tasks: create_datacenters.yml
 #   loop: "{{ vcsa_datacenters }}"
