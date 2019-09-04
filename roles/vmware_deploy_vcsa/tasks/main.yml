@@ -32,7 +32,7 @@
 - include_tasks: assign_vcenter_permissions.yml
   vars:
     vcsa_role: "Admin"
-  loop: vcsa_vcenter_admin_groups
+  loop: "{{ vcsa_vcenter_admin_groups }}"
   loop_control:
     loop_var: vcsa_group
   when: |
@@ -42,7 +42,7 @@
 - include_tasks: assign_vcenter_permissions.yml
   vars:
     vcsa_role: "ReadOnly"
-  loop: vcsa_vcenter_readonly_groups
+  loop: "{{ vcsa_vcenter_readonly_groups }}"
   loop_control:
     loop_var: vcsa_group
   when: |
