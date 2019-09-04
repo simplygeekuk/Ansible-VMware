@@ -11,3 +11,6 @@ http_content_type: "application/json"
 http_accept: "application/json"
 http_validate_certs: no
 http_body_format: "json"
+
+## 
+vcsa_validate_certs: no
