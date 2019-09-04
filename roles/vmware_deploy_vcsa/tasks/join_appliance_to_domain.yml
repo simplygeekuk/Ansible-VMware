@@ -24,6 +24,11 @@
   when: vcsa_ad_dom_join_ou is defined
 
 - name: "Join appliance to domain: {{ vcsa_ad_dom_join_domain }}"
-  shell: "/opt/likewise/bin/domainjoin-cli join {{ likewise_ou_param | default('') }} {{ vcsa_ad_dom_join_domain }} {{ vcsa_ad_dom_join_username }} {{ vcsa_ad_dom_join_password | quote }}"
+  shell: >
+    "/opt/likewise/bin/domainjoin-cli join
+    {{ likewise_ou_param | default('') }}
+    {{ vcsa_ad_dom_join_domain }}
+    {{ vcsa_ad_dom_join_username }}
+    {{ vcsa_ad_dom_join_password | quote }}"
   register: ad_join
   when: not (ad_query.stdout is search('Domain = ' + vcsa_ad_dom_join_domain|upper))
