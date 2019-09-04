@@ -7,8 +7,8 @@
     validate_certs: "{{ ova_validate_certs }}"
     role: "Admin"
     group: "{{ ad_dom_join_domain }}\\{{ vcsa_admin_group }}"
-    object_type: "Datacenter"
-    object_name: "{{ vcsa_datacenter }}"
+    object_type: "Folder"
+    object_name: rootFolder
     state: present
   delegate_to: localhost
   when: vcsa_admin_group is defined
