@@ -40,16 +40,16 @@ ansible_host: "{{ network_ip_address }}"
 ## and set to AUTOMATIC startup.
 ## A list of services can be found using 'service-control --list'.
 vcsa_services_to_start:
- - updatemgr
- - vsphere-ui
- - content-library
- - vapi-endpoint
+  - updatemgr
+  - vsphere-ui
+  - content-library
+  - vapi-endpoint
 
 ## Ensure that the following services are stopped on the appliance
 ## and set to MANUAL startup.
 vcsa_services_to_stop:
- - rbd
- - imagebuilder
+  - rbd
+  - imagebuilder
 
 ## Set this to yes to prevent the VCSA root account from expiring.
 # vcsa_root_expiration_disable: yes
@@ -71,15 +71,15 @@ vcsa_ad_dom_join_password: "VMwar3!!"
 
 ##
 vcsa_datacenters:
- - SG2
+  - SG2
 
 vcsa_clusters:
- - name: "Resources-01"
-   datacenter: SG2
+  - name: "Resources-01"
+    datacenter: SG2
 
 ##
 vcsa_vcenter_admin_groups:
- - "vSphere-Admins"
+  - "vSphere-Admins"
 
 vcsa_vcenter_readonly_groups:
- - "vSphere-ReadOnly"
+  - "vSphere-ReadOnly"
