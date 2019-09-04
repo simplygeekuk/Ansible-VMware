@@ -8,9 +8,10 @@
 # - include_tasks: update_identity_sso_config_cli.yml
 
 # - include_tasks: join_appliance_to_domain.yml
-#   when: |
-#     vcsa_join_to_domain is defined and
-#     vcsa_join_to_domain|bool
+#   when: vcsa_join_to_domain is defined and vcsa_join_to_domain|bool
+
+# - include_tasks: reboot_appliance_and_wait.yml
+#   when: ad_join is defined and ad_join.changed|bool
 
 # - include_tasks: add_domain_to_identity_sources.yml
 #   when: |
@@ -18,19 +19,7 @@
 #     (ad_join is defined and ad_join.changed|bool) and
 #     (vcsa_reboot is defined and vcsa_reboot.changed|bool)
 
-- include_tasks: create_datacenters.yml
-  loop: "{{ vcsa_datacenters }}"
-  loop_control:
-    loop_var: datacenter
-  when: vcsa_datacenters is defined
-
-- include_tasks: create_clusters.yml
-  loop: "{{ vcsa_clusters }}"
-  loop_control:
-    loop_var: cluster
-  when: vcsa_clusters is defined
-
-# - include_tasks: assign_admin_permissions.yml
+- include_tasks: assign_admin_permissions.yml
 
 # - include_tasks: rest_api_auth_login.yml
 
@@ -41,3 +30,15 @@
 #   when: vcsa_services_to_stop is defined
 
 # - include_tasks: rest_api_auth_logout.yml
+
+# - include_tasks: create_datacenters.yml
+#   loop: "{{ vcsa_datacenters }}"
+#   loop_control:
+#     loop_var: datacenter
+#   when: vcsa_datacenters is defined
+
+# - include_tasks: create_clusters.yml
+#   loop: "{{ vcsa_clusters }}"
+#   loop_control:
+#     loop_var: cluster
+#   when: vcsa_clusters is defined
