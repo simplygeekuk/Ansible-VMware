@@ -5,11 +5,11 @@
   changed_when: false
 
 - name: Add domain to identity sources
-  shell: "/opt/vmware/bin/sso-config.sh -add_identity_source -type nativead -domain {{ ad_dom_join_domain }}"
+  shell: "/opt/vmware/bin/sso-config.sh -add_identity_source -type nativead -domain {{ vcsa_ad_dom_join_domain }}"
   register: add_domain_to_identity
-  when: not (check_domain_in_identity.stdout is search('IdentitySourceName\s+:\s+' + ad_dom_join_domain|lower))
+  when: not (check_domain_in_identity.stdout is search('IdentitySourceName\s+:\s+' + vcsa_ad_dom_join_domain|lower))
 
 - name: Set domain as default identity source
-  shell: "/opt/vmware/bin/sso-config.sh -set_default_identity_sources {{ ad_dom_join_domain }}"
+  shell: "/opt/vmware/bin/sso-config.sh -set_default_identity_sources {{ vcsa_ad_dom_join_domain }}"
   register: set_default_identity_source
   when: add_domain_to_identity.changed|bool

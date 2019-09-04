@@ -13,17 +13,17 @@
     insertafter: '^\[libdefaults\]$'
     line: " rdns = false"
 
-- name: Check if appliance is already joined to the domain
+- name: "Check if appliance is already joined to domain: {{ vcsa_ad_dom_join_domain }}"
   shell: "/opt/likewise/bin/domainjoin-cli query"
   register: ad_query
   changed_when: false
 
 - name: Set Likewise OU parameter if defined
   set_fact:
-    likewise_ou_param: "--ou {{ ad_dom_join_ou }}"
-  when: ad_dom_join_ou is defined
+    likewise_ou_param: "--ou {{ vcsa_ad_dom_join_ou }}"
+  when: vcsa_ad_dom_join_ou is defined
 
-- name: Join appliance to the domain
-  shell: "/opt/likewise/bin/domainjoin-cli join {{ likewise_ou_param | default('') }} {{ ad_dom_join_domain }} {{ ad_dom_join_username }} {{ ad_dom_join_password | quote }}"
+- name: "Join appliance to domain: {{ vcsa_ad_dom_join_domain }}"
+  shell: "/opt/likewise/bin/domainjoin-cli join {{ likewise_ou_param | default('') }} {{ vcsa_ad_dom_join_domain }} {{ vcsa_ad_dom_join_username }} {{ vcsa_ad_dom_join_password | quote }}"
   register: ad_join
-  when: not (ad_query.stdout is search('Domain = ' + ad_dom_join_domain|upper))
+  when: not (ad_query.stdout is search('Domain = ' + vcsa_ad_dom_join_domain|upper))
