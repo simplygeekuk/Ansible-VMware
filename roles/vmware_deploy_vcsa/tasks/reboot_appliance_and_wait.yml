@@ -1,0 +1,23 @@
+---
+- name: Reboot appliance
+  vmware_guest:
+    hostname: "{{ ova_deployment_hostname }}"
+    username: "{{ ova_deployment_username }}"
+    password: "{{ ova_deployment_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    name: "{{ inventory_hostname_short | upper }}"
+    state: rebootguest
+  register: vcsa_reboot
+  delegate_to: localhost
+
+- name: Wait for VCSA to start
+  include_tasks: wait_for_ssh.yml
+  when: vcsa_reboot.changed|bool
+
+- name: Make sure API service is available
+  include_tasks: rest_api_auth_login.yml
+  when: vcsa_reboot.changed|bool
+
+- name: Log out of API from previous check
+  include_tasks: rest_api_auth_logout.yml
+  when: vcsa_reboot.changed|bool
