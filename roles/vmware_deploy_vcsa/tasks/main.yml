@@ -57,6 +57,12 @@
 #     (vcsa_join_to_domain is defined and vcsa_join_to_domain|bool) and
 #     vcsa_global_admin_groups is defined
 
+- include_tasks: configure_settings.yml
+  when: vcsa_settings is defined
+
+- include_tasks: configure_advanced_settings.yml
+  when: vcsa_advanced_settings is defined
+
 - include_tasks: assign_vcenter_license.yml
   when: vcsa_license is defined
 
@@ -67,9 +73,6 @@
   when: |
     vcsa_esxi_license is defined and
     vcsa_esxi_hosts is defined
-
-- include_tasks: configure_settings.yml
-- include_tasks: configure_advanced_settings.yml
 
 # - include_tasks: create_datacenters.yml
 #   loop: "{{ vcsa_datacenters }}"
