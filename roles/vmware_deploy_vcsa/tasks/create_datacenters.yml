@@ -1,0 +1,11 @@
+---
+- name: "Create Datacenter {{ datacenter }}"
+  vmware_datacenter:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    datacenter_name: '{{ datacenter }}'
+    state: present
+  register: create_datacenter
+  delegate_to: localhost

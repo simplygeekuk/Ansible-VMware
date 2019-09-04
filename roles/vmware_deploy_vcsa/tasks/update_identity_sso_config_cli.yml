@@ -1,0 +1,20 @@
+---
+- name: Check if original vmware-identity-sso-config.jar exists
+  stat:
+    path: /root/vmware-identity-sso-config.jar.orig
+    get_checksum: no
+  register: sso_config
+
+- name: Backup existing vmware-identity-sso-config.jar
+  copy:
+    remote_src: yes
+    src: /opt/vmware/lib64/vmware-identity-sso-config.jar
+    dest: /root/vmware-identity-sso-config.jar.orig
+  register: sso_config_backup
+  when: not (sso_config.stat.exists|bool)
+
+- name: Copy updated vmware-identity-sso-config.jar to VCSA
+  copy:
+    src: vmware-identity-sso-config.jar
+    dest: /opt/vmware/lib64/vmware-identity-sso-config.jar
+  when: sso_config_backup.changed|bool

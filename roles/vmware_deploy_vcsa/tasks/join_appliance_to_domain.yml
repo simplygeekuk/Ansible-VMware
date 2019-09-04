@@ -16,6 +16,7 @@
 - name: Check if appliance is already joined to the domain
   shell: "/opt/likewise/bin/domainjoin-cli query"
   register: ad_query
+  changed_when: false
 
 - name: Set Likewise OU parameter if defined
   set_fact:
@@ -33,7 +34,7 @@
     username: "{{ ova_deployment_username }}"
     password: "{{ ova_deployment_password }}"
     validate_certs: "{{ ova_validate_certs }}"
-    name: "{{ inventory_hostname_short | lower }}"
+    name: "{{ inventory_hostname_short | upper }}"
     state: rebootguest
   register: vcsa_reboot
   delegate_to: localhost

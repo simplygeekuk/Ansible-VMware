@@ -1,0 +1,16 @@
+---
+- name: "Create Cluster {{ cluster.name }}"
+  vmware_cluster:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ ova_validate_certs }}"
+    datacenter_name: "{{ cluster.datacenter }}"
+    cluster_name: "{{ cluster.name }}"
+    enable_ha: True
+    ha_vm_monitoring: vmMonitoringOnly
+    enable_drs: True
+    drs_default_vm_behavior: partiallyAutomated
+    enable_vsan: False
+  register: create_cluster
+  delegate_to: localhost

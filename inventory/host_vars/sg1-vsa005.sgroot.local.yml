@@ -59,7 +59,22 @@ vcsa_services_to_stop:
 ## is set to 'yes'.
 # vcsa_root_expiration_days: "180"
 
+## If you would like to join the appliance to the domain then
+## set 'vcsa_join_to_domain' to 'yes'.
+vcsa_join_to_domain: yes
+
 # Active Directory Join Domain Account
 ad_dom_join_domain: "{{ dns_domain }}"
 ad_dom_join_username: "svc_dom_join@sgroot.local"
 ad_dom_join_password: "VMwar3!!"
+
+##
+vcsa_datacenters:
+ - SG2
+
+vcsa_clusters:
+ - name: "Resources-01"
+   datacenter: SG2
+
+##
+vcsa_admin_group: "vSphere-Admins"

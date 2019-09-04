@@ -1,32 +1,15 @@
 ---
-- name: Add External Identity Source Name
-  lineinfile:
-    path: /usr/lib/vmware/cis_upgrade_runner/payload/component-scripts/sso/exported_sso.properties
-    create: yes
-    regexp: "^ExternalIdentitySource.{{ ad_dom_join_domain }}.name={{ ad_dom_join_domain }}$"
-    line: "ExternalIdentitySource.{{ ad_dom_join_domain }}.name={{ ad_dom_join_domain }}"
-  register: sso_name
+- name: Check if domain exists in identity sources
+  shell: "/opt/vmware/bin/sso-config.sh -get_identity_sources"
+  register: check_domain_in_identity
+  changed_when: false
 
-- name: Add External Identity Source Type
-  lineinfile:
-    path: /usr/lib/vmware/cis_upgrade_runner/payload/component-scripts/sso/exported_sso.properties
-    regexp: "^ExternalIdentitySource.{{ ad_dom_join_domain }}.type=0$"
-    insertafter: "^ExternalIdentitySource.{{ ad_dom_join_domain }}.name={{ ad_dom_join_domain }}$"
-    line: "ExternalIdentitySource.{{ ad_dom_join_domain }}.type=0"
-  register: sso_type
+- name: Add domain to identity sources
+  shell: "/opt/vmware/bin/sso-config.sh -add_identity_source -type nativead -domain {{ ad_dom_join_domain }}"
+  register: add_domain_to_identity
+  when: not (check_domain_in_identity.stdout is search('IdentitySourceName\s+:\s+' + ad_dom_join_domain|lower))
 
-- name: Add External Identity Source Domain Name
-  lineinfile:
-    path: /usr/lib/vmware/cis_upgrade_runner/payload/component-scripts/sso/exported_sso.properties
-    regexp: "^ExternalIdentitySourcesDomainNames={{ ad_dom_join_domain }}$"
-    insertafter: "^ExternalIdentitySource.{{ ad_dom_join_domain }}.type=0$"
-    line: "ExternalIdentitySourcesDomainNames={{ ad_dom_join_domain }}"
-  register: sso_domain
-
-- name: Import SSO Identity Sources
-  shell: "/bin/bash /usr/lib/vmware/cis_upgrade_runner/payload/component-scripts/sso/sso_import.sh"
-  register: import_sso
-  when: |
-    sso_name.changed|bool or
-    sso_type.changed|bool or
-    sso_domain.changed|bool
+- name: Set domain as default identity source
+  shell: "/opt/vmware/bin/sso-config.sh -set_default_identity_sources {{ ad_dom_join_domain }}"
+  register: set_default_identity_source
+  when: add_domain_to_identity.changed|bool
