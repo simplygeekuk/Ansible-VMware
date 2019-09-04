@@ -34,8 +34,10 @@
       vmware-session-nonce: "{{ vmware_session_nonce }}"
       permissions: "{{ lookup('template' , 'global_permissions.j2') }}"
     status_code: [200]
+    return_content: yes
+  register: add_global_perm
+  changed_when: '"Method Invocation Result: void" in add_global_perm.content'
   delegate_to: localhost
-  delegate_facts: yes
 
 - name: Logout Session
   uri:
@@ -46,4 +48,3 @@
       Cookie: "{{ vcsa_mob_session_cookie }}"
     status_code: [200]
   delegate_to: localhost
-  delegate_facts: yes
