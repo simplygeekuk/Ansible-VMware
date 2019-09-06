@@ -25,7 +25,7 @@
     vcsa_user_directory_query_limit_size is defined or
     vcsa_user_directory_validation is defined or
     vcsa_user_directory_validation_period is defined or
-    vcsa_mail_server is defined and vcsa_mail_sender is defined) or
+    (vcsa_mail_server is defined and vcsa_mail_sender is defined) or
     vcsa_snmp_receiver_url is defined or
     vcsa_normal_operations_timeout is defined or
     vcsa_long_operations_timeout is defined or
