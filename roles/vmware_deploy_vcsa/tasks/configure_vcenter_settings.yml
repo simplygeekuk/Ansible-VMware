@@ -1,0 +1,32 @@
+---
+- name: Configure vCenter Settings
+  vmware_vcenter_settings:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ vcsa_validate_certs }}"
+    database: "{{ vcsa_database_settings }}"
+    runtime_settings: "{{ vcsa_runtime_settings }}"
+    user_directory: "{{ vcsa_user_directory_settings }}"
+    mail: "{{ vcsa_mail_settings }}"
+    snmp_receivers: "{{ vcsa_snmp_receivers_settings }}"
+    timeout_settings: "{{ vcsa_timeout_settings }}"
+    logging_options: "{{ vcsa_logging_option }}"
+  delegate_to: localhost
+  when: |
+    vcsa_database_max_connections is defined or
+    vcsa_task_cleanup is defined or
+    vcsa_task_retention is defined or
+    vcsa_event_cleanup is defined or
+    vcsa_event_retention is defined or
+    vcsa_unique_id is defined or
+    vcsa_user_directory_timeout is defined or
+    vcsa_user_directory_query_limit is defined or
+    vcsa_user_directory_query_limit_size is defined or
+    vcsa_user_directory_validation is defined or
+    vcsa_user_directory_validation_period is defined or
+    vcsa_mail_server is defined and vcsa_mail_sender is defined) or
+    vcsa_snmp_receiver_url is defined or
+    vcsa_normal_operations_timeout is defined or
+    vcsa_long_operations_timeout is defined or
+    vcsa_logging_level is defined
