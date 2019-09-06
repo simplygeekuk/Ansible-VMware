@@ -31,4 +31,15 @@
     {{ vcsa_ad_dom_join_username }}
     {{ vcsa_ad_dom_join_password | quote }}"
   register: ad_join
+  ignore_errors: yes
   when: not (ad_query.stdout is search('Domain = ' + vcsa_ad_dom_join_domain|upper))
+  
+- name: Leave the domain if there was an issue
+  command: "/opt/likewise/bin/domainjoin-cli leave"
+  register: ad_leave
+  when: ad_join.rc is defined and ad_join.rc > 0
+
+- name: Fail if there was an issue joining the domain
+  fail:
+    msg: ad_join.stdout
+  when: ad_join.rc is defined and ad_join.rc > 0
