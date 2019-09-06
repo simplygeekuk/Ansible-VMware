@@ -34,8 +34,8 @@ default_user_directory_validation: true
 default_user_directory_validation_period: 1400
 
 ## Default mail settings
-default_mail_server: "mail.example.com"
-default_mail_sender: "vcenter@{{ inventory_hostname }}"
+default_mail_server: ""
+default_mail_sender: ""
 
 ## Default SNMP receiver settings
 default_snmp_receiver_url: "localhost"
