@@ -30,3 +30,23 @@
     vcsa_normal_operations_timeout is defined or
     vcsa_long_operations_timeout is defined or
     vcsa_logging_level is defined
+
+- name: Configure vCenter statistics
+  vmware_vcenter_statistics:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ vcsa_validate_certs }}"
+    interval_past_day: 
+      enabled: true
+      level: "{{ vcsa_interval_past_day_level | default(1) }}"
+    interval_past_week:
+      enabled: true
+      level: "{{ vcsa_interval_past_week_level | default(1) }}"
+    interval_past_month:
+      enabled: true
+      level: "{{ vcsa_interval_past_month_level | default(1) }}"
+    interval_past_year:
+      enabled: true
+      level: "{{ vcsa_interval_past_year_level | default(1) }}"
+  delegate_to: localhost
