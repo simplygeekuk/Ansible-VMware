@@ -60,8 +60,7 @@
 - include_tasks: assign_vcenter_license.yml
   when: vcsa_license is defined
 
-- include_tasks: configure_settings.yml
-  when: vcsa_settings is defined
+- include_tasks: configure_vcenter_settings.yml
 
 # - include_tasks: create_datacenters.yml
 #   loop: "{{ vcsa_datacenters }}"
