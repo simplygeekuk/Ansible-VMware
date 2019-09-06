@@ -1,2 +1,37 @@
 ---
-# vars file for roles/vmware_deploy_vcsa
+
+## vCenter Settings
+vcsa_database_settings:
+  max_connections: "{{ vcsa_database_max_connections | default(default_database_max_connections) }}"
+  task_cleanup: "{{ vcsa_task_cleanup | default(default_database_task_cleanup) }}"
+  task_retention: "{{ vcsa_task_retention | default(default_database_task_retention) }}"
+  event_cleanup: "{{ vcsa_event_cleanup | default(default_database_event_cleanup) }}"
+  event_retention: "{{ vcsa_event_retention | default(default_database_event_retention) }}"
+
+vcsa_runtime_settings:
+  unique_id: "{{ vcsa_unique_id | default(default_runtime_unique_id) }}"
+  managed_address: "{{ network_ip_address }}"
+  vcenter_server_name: "{{ inventory_hostname | lower }}"
+
+vcsa_user_directory_settings:
+  timeout: "{{ vcsa_user_directory_timeout | default(default_user_directory_timeout) }}"
+  query_limit: "{{ vcsa_user_directory_query_limit | default(default_user_directory_query_limit) }}"
+  query_limit_size: "{{ vcsa_user_directory_query_limit_size | default(default_user_directory_query_limit_size) }}"
+  validation: "{{ vcsa_user_directory_validation | default(default_user_directory_validation) }}"
+  validation_period: "{{ vcsa_user_directory_validation_period | default(default_user_directory_validation_period) }}"
+
+vcsa_mail_settings:
+  server: "{{ vcsa_mail_server | default(default_mail_server) }}"
+  sender: "{{ vcsa_mail_sender | default(default_mail_sender) }}"
+
+vcsa_snmp_receivers_settings:
+  snmp_receiver_1_url: "{{ vcsa_snmp_receiver_url | default(default_snmp_receiver_url) }}"
+  snmp_receiver_1_enabled: "{{ vcsa_snmp_receiver_enabled | default(default_snmp_receiver_enabled) }}"
+  snmp_receiver_1_port: "{{ vcsa_snmp_receiver_port | default(default_snmp_receiver_port) }}"
+  snmp_receiver_1_community: "{{ vcsa_snmp_receiver_community | default(default_snmp_receiver_community) }}"
+
+vcsa_timeout_settings:
+  normal_operations: "{{ vcsa_normal_operations_timeout | default(default_timeout_normal_operations) }}"
+  long_operations: "{{ vcsa_long_operations_timeout | default(default_timeout_long_operations) }}"
+
+vcsa_logging_option: "{{ vcsa_logging_level | default(default_logging_level) }}"

@@ -1,1 +1,15 @@
 ---
+- name: Configure vCenter Settings
+  vmware_vcenter_settings:
+    hostname: "{{ inventory_hostname }}"
+    username: "{{ vcsa_sso_username }}"
+    password: "{{ vcsa_sso_password }}"
+    validate_certs: "{{ vcsa_validate_certs }}"
+    database: "{{ vcsa_database_settings }}"
+    runtime_settings: "{{ vcsa_runtime_settings }}"
+    user_directory: "{{ vcsa_user_directory_settings }}"
+    mail: "{{ vcsa_mail_settings }}"
+    snmp_receivers: "{{ vcsa_snmp_receivers_settings }}"
+    timeout_settings: "{{ vcsa_timeout_settings }}"
+    logging_options: "{{ vcsa_logging_option }}"
+  delegate_to: localhost

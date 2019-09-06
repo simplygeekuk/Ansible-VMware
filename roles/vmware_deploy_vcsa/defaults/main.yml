@@ -12,5 +12,40 @@ http_accept: "application/json"
 http_validate_certs: no
 http_body_format: "json"
 
-## 
+## Default for enabling certificate verification when connecting
+## to the VCSA appliance.
 vcsa_validate_certs: no
+
+## Default database settings
+default_database_max_connections: 50
+default_database_task_cleanup: true
+default_database_task_retention: 30
+default_database_event_cleanup: true
+default_database_event_retention: 30
+
+## Default runtime settings
+default_runtime_unique_id: 1
+
+## Default user directory settings
+default_user_directory_timeout: 60
+default_user_directory_query_limit: true
+default_user_directory_query_limit_size: 5000
+default_user_directory_validation: true
+default_user_directory_validation_period: 1400
+
+## Default mail settings
+default_mail_server: "mail.example.com"
+default_mail_sender: "vcenter@{{ inventory_hostname }}"
+
+## Default SNMP receiver settings
+default_snmp_receiver_url: "localhost"
+default_snmp_receiver_enabled: true
+default_snmp_receiver_port: 162
+default_snmp_receiver_community: "public"
+
+## Default timeout settings:
+default_timeout_normal_operations: 30
+default_timeout_long_operations: 120
+
+## Default logging option
+default_logging_level: "info"
