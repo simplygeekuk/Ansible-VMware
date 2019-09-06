@@ -69,6 +69,8 @@ vcsa_ad_dom_join_username: "svc_dom_join@sgroot.local"
 vcsa_ad_dom_join_password: "VMwar3!!"
 # vcsa_ad_dom_join_ou: ""
 
+vcsa_normal_operations_timeout: 7200
+
 ##
 vcsa_datacenters:
   - SG2
