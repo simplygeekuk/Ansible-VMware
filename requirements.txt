@@ -8,7 +8,7 @@ dnspython==1.16.0
 idna==2.8
 Jinja2==2.10.3
 jmespath==0.9.4
-lxml==4.4.2
+lxml==4.6.3
 MarkupSafe==1.1.1
 pycparser==2.19
 pyvmomi==6.7.3
